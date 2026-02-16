@@ -1,0 +1,135 @@
+.art-subtitle {
+  padding-inline: 0px !important;
+  gap: 2px !important;
+}
+.art-volume-panel {
+  padding-bottom: 20px !important;
+}
+.art-settings {
+  margin-bottom: 20px !important;
+}
+.art-subtitle {
+  margin-bottom: 1rem !important;
+}
+.art-subtitle-line {
+  min-width: fit-content;
+  background-color: rgba(0, 0, 0, 0.479) !important;
+  padding-inline: 3px !important;
+}
+.art-subtitle-line,
+.art-subtitle-line * {
+  font-size: inherit !important;
+  color: inherit !important;
+  line-height: inherit !important;
+  font-weight: inherit !important;
+  white-space: inherit !important;
+}
+
+/* ✅ Settings menu mobile optimization */
+@media screen and (max-width: 640px) {
+  /* ✅ Move play/pause state indicator to align with logo - vertically centered */
+  .art-state {
+    top: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  /* ✅ Position subtitle switcher to vertically align with logo */
+  .art-subtitle-indicator {
+    top: 22px !important;
+    left: 8px !important;
+    font-size: 9px !important;
+    padding: 4px 6px !important;
+    background-color: #1F2020 !important;
+    border-radius: 5px !important;
+    line-height: 1.2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    height: auto !important;
+  }
+  
+  /* Make settings panel scrollable on mobile */
+  .art-setting-panel {
+    max-height: 60vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Smaller font sizes for mobile */
+  .art-setting-item {
+    font-size: 13px !important;
+    padding: 8px 10px !important;
+    min-height: 35px !important;
+  }
+  
+  /* Smaller icons */
+  .art-setting-item .art-icon {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  
+  /* Compact selector items */
+  .art-setting-item-left,
+  .art-setting-item-right {
+    font-size: 12px !important;
+  }
+  
+  /* PIP button: Hide by default on mobile, JS will show for Watch Together */
+  /* Only apply to non-Watch Together players */
+  .art-control-pip {
+    display: none !important;
+  }
+  
+  /* ✅ Override: Show PIP for Watch Together on mobile */
+  .watch-together-player .art-control-pip {
+    display: flex !important;
+  }
+  
+  /* ✅ Hide forward/backward 10s buttons for Watch Together (both host and members) on mobile */
+  .watch-together-player .art-control:has([tooltip="Forward 10s"]),
+  .watch-together-player .art-control:has([tooltip="Backward 10s"]) {
+    display: none !important;
+  }
+  
+  /* Alternative selector if :has() not supported */
+  .watch-together-host .art-controls-right .art-control:nth-child(1),
+  .watch-together-host .art-controls-right .art-control:nth-child(2),
+  .watch-together-member .art-controls-right .art-control:nth-child(1),
+  .watch-together-member .art-controls-right .art-control:nth-child(2) {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .art-progress {
+    padding-bottom: 5px !important;
+  }
+  .art-controls-left .art-control {
+    justify-content: flex-start !important;
+  }
+  .art-controls-right .art-control {
+    justify-content: flex-end !important;
+  }
+  .art-controls-right .art-control svg {
+    width: 22px;
+    height: 22px;
+  }
+  .art-controls-left .art-control svg {
+    width: 22px;
+    height: 22px;
+  }
+  .art-state .art-icon svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .art-controls-right .art-control svg {
+    width: 20px;
+    height: 20px;
+  }
+  .art-controls-left .art-control svg {
+    width: 20px;
+    height: 20px;
+  }
+}

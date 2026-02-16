@@ -1,0 +1,79 @@
+.swiper {
+  width: 100%;
+}
+.swiper-slide {
+  font-size: 18px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets {
+  bottom: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  display: flex !important;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  opacity: 1 !important;
+  transition: width 0.35s cubic-bezier(0.4,0,0.2,1), background-color 0.35s cubic-bezier(0.4,0,0.2,1), border-radius 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ffbade !important;
+  width: 24px !important;
+  border-radius: 12px !important;
+  opacity: 1;
+}
+
+.swiper-pagination {
+  bottom: 20px !important;
+}
+
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 575px) {
+  .swiper-horizontal > .swiper-pagination-bullets {
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
+    display: flex !important;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row !important;
+    height: auto !important;
+  }
+  .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+    transition: width 0.35s cubic-bezier(0.4,0,0.2,1), background-color 0.35s cubic-bezier(0.4,0,0.2,1), border-radius 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .swiper-pagination-bullet-active {
+    width: 16px !important;
+    border-radius: 8px !important;
+    opacity: 1;
+  }
+}
