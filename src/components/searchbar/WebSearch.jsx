@@ -30,7 +30,7 @@ function WebSearch() {
         <div className="flex items-center relative w-[450px] max-[600px]:w-fit">
             <input
                 type="text"
-                className="w-full px-5 py-2 bg-[#0a0a0a]/75 text-white rounded-lg focus:outline-none transition-colors placeholder-white/50 max-[600px]:hidden"
+                className="w-full px-5 py-2 bg-[#0a0a0a]/75 text-white rounded-lg focus:outline-none transition-all duration-200 placeholder-white/50 border border-white/10 hover:border-white/25 focus:border-white/25 max-[600px]:hidden"
                 placeholder="Search anime..."
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
@@ -54,7 +54,7 @@ function WebSearch() {
                 }}
             />
             <button
-                className="absolute right-4 text-white/50 hover:text-white transition-colors max-[600px]:static max-[600px]:bg-transparent focus:outline-none max-[600px]:p-0"
+                className="absolute right-4 text-white/50 hover:text-white transition-colors max-[600px]:static max-[600px]:bg-transparent max-[600px]:border max-[600px]:border-white/10 max-[600px]:hover:border-white/25 max-[600px]:rounded-md max-[600px]:w-8 max-[600px]:h-8 max-[600px]:flex max-[600px]:items-center max-[600px]:justify-center focus:outline-none max-[600px]:p-0"
                 onClick={handleSearchClick}
             >
                 <FontAwesomeIcon
