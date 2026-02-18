@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const CACHE_KEY = "homeInfoCache";
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes instead of 24 hours
+const CACHE_DURATION = 24 * 60 * 60 * 1000;
 
 export default async function getHomeInfo() {
   const api_url = import.meta.env.VITE_API_URL;

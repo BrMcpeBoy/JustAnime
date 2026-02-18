@@ -28,27 +28,25 @@ body {
 body::-webkit-scrollbar {
   display: none;  /* Chrome, Safari and Opera */
 }
-
-/* Modern Dark Scrollbar Styling */
+/* Hide default scrollbar completely */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
+  background-color: #201f31;  /* Match the page background color */
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
-  border-radius: 0;
+  background-color: #201f31;  /* Match the page background color */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
-  border-radius: 5px;
-  border: 2px solid #0a0a0a;
-  transition: background 0.2s ease;
+  background-color: #404040;
+  border-radius: 20px;
+  border: 2px solid #201f31;  /* Match the page background color */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
+  background: #4d4d4d;
 }
 
 /* Hide scrollbar buttons */
@@ -59,42 +57,38 @@ body::-webkit-scrollbar {
 }
 
 ::-webkit-scrollbar-corner {
-  background: #0a0a0a;
+  background-color: #201f31;  /* Match the page background color */
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #2a2a2a #0a0a0a;
+  scrollbar-color: #404040 #201f31;  /* Match the page background color */
 }
 
-/* Scrollbar visible class */
+/* Hide default scrollbar for .scrollbar-visible class */
 .scrollbar-visible {
   scrollbar-width: thin;
-  scrollbar-color: #2a2a2a #0a0a0a;
+  scrollbar-color: #404040 #201f31;  /* Match the page background color */
 }
 
 .scrollbar-visible::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
+  background-color: #201f31;  /* Match the page background color */
 }
 
 .scrollbar-visible::-webkit-scrollbar-track {
-  background: #0a0a0a;
-  border-radius: 0;
+  background-color: #201f31;  /* Match the page background color */
 }
 
 .scrollbar-visible::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
-  border-radius: 5px;
-  border: 2px solid #0a0a0a;
-  transition: background 0.2s ease;
+  background-color: #404040;
+  border-radius: 20px;
+  border: 2px solid #201f31;  /* Match the page background color */
 }
 
-.scrollbar-visible::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
-}
-
+/* Hide scrollbar buttons for .scrollbar-visible */
 .scrollbar-visible::-webkit-scrollbar-button {
   display: none;
   width: 0;
@@ -102,42 +96,25 @@ body::-webkit-scrollbar {
 }
 
 .scrollbar-visible::-webkit-scrollbar-corner {
-  background: #0a0a0a;
+  background-color: #201f31;  /* Match the page background color */
 }
-
-/* Hide scrollbar class */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+::-webkit-scrollbar {
+  width: 16px;
+}
 
+::-webkit-scrollbar-track {
+  background: #23222c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #65646a;
+}
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
-}
-
-/* Thin scrollbar for dropdowns */
-.scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-}
-
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-  transition: background 0.2s ease;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
 }
 
 .is-visible {
@@ -209,65 +186,78 @@ body::-webkit-scrollbar {
   display: inline-block;
 }
 
-/* ============================================ */
-/* NOTIFICATION SYSTEM - Comment Highlight CSS */
-/* ============================================ */
-
-/* Comment highlight animation when navigating from notifications */
-.highlight-comment {
-  animation: highlight 3s ease;
-  position: relative;
-  z-index: 10;
+/* Modern Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
 }
 
-@keyframes highlight {
-  0% {
-    background-color: transparent;
-    border-left: 3px solid transparent;
-  }
-  5% {
-    background-color: rgba(59, 130, 246, 0.2);
-    border-left: 3px solid rgb(59, 130, 246);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-  }
-  10%, 85% {
-    background-color: rgba(59, 130, 246, 0.15);
-    border-left: 3px solid rgb(59, 130, 246);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.05);
-  }
-  95% {
-    background-color: rgba(59, 130, 246, 0.05);
-    border-left: 3px solid rgba(59, 130, 246, 0.5);
-    box-shadow: none;
-  }
-  100% {
-    background-color: transparent;
-    border-left: 3px solid transparent;
-    box-shadow: none;
-  }
+::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
 }
 
-/* Ensure highlighted comment is visible above other elements */
-.highlight-comment::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
-  border-radius: 8px;
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
-  pointer-events: none;
-  opacity: 0;
-  animation: highlightGlow 3s ease;
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
 }
 
-@keyframes highlightGlow {
-  0%, 100% {
-    opacity: 0;
-  }
-  10%, 85% {
-    opacity: 1;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
+/* Hide scrollbar buttons */
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0.02);
+}
+
+/* Scrollbar visible class with modern styling */
+.scrollbar-visible {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0.02);
+}
+
+.scrollbar-visible::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+}
+
+.scrollbar-visible::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.scrollbar-visible::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.scrollbar-visible::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
