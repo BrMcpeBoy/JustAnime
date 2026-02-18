@@ -294,9 +294,9 @@ function Episodelist({
                     </div>
                     {/* Fading separator line */}
                     <div
-                      className="absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none"
+                      className="absolute left-0 top-0 bottom-0 w-[1px] pointer-events-none"
                       style={{
-                        background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 8%, rgba(255,255,255,0.08) 75%, transparent 100%)",
+                        background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.08) 85%, transparent 100%)",
                       }}
                     />
                   </div>
