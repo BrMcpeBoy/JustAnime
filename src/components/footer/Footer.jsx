@@ -79,7 +79,7 @@ function Footer() {
           </div>
 
           {/* Legal Text */}
-          <div className="space-y-2 text-sm text-white/30 text-center sm:text-left border-t border-white/10 pt-4">
+          <div className="space-y-2 text-sm text-white/30 text-center sm:text-left pt-4">
             <p className="max-w-4xl mx-auto sm:mx-0">
               {website_name} does not host any files, it merely pulls streams from
               3rd party services. Legal issues should be taken up with the file
