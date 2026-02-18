@@ -63,17 +63,27 @@ function Servers({
     </button>
   );
 
-  const ServerRow = ({ icon, label, servers: list }) =>
+  const ServerRow = ({ icon, label, servers: list, showRuler }) =>
     list.length > 0 ? (
-      <div className="servers flex items-center flex-wrap gap-2 py-2 max-[600px]:py-1.5">
-        <div className="flex items-center gap-1.5 min-w-[55px]">
-          <FontAwesomeIcon icon={icon} className="text-white/40 text-[12px]" />
-          <p className="font-semibold text-[13px] text-white/60 max-[600px]:text-[12px]">{label}</p>
-        </div>
-        <div className="flex gap-1.5 flex-wrap">
-          {list.map((item, index) => (
-            <ServerButton key={index} item={item} />
-          ))}
+      <div>
+        {showRuler && (
+          <div
+            className="h-[1px] w-full pointer-events-none"
+            style={{
+              background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 10%, rgba(255,255,255,0.08) 90%, transparent 100%)",
+            }}
+          />
+        )}
+        <div className="servers flex items-center flex-wrap gap-2 py-2 max-[600px]:py-1.5">
+          <div className="flex items-center gap-1.5 min-w-[55px]">
+            <FontAwesomeIcon icon={icon} className="text-white/40 text-[12px]" />
+            <p className="font-semibold text-[13px] text-white/60 max-[600px]:text-[12px]">{label}</p>
+          </div>
+          <div className="flex gap-1.5 flex-wrap">
+            {list.map((item, index) => (
+              <ServerButton key={index} item={item} />
+            ))}
+          </div>
         </div>
       </div>
     ) : null;
@@ -95,10 +105,10 @@ function Servers({
               · If server doesn&apos;t work, try another
             </p>
           </div>
-          <div className="flex flex-col divide-y divide-white/5">
-            <ServerRow icon={faFile} label="RAW:" servers={rawServers} />
-            <ServerRow icon={faClosedCaptioning} label="SUB:" servers={subServers} />
-            <ServerRow icon={faMicrophone} label="DUB:" servers={dubServers} />
+          <div className="flex flex-col">
+            <ServerRow icon={faFile} label="RAW:" servers={rawServers} showRuler={false} />
+            <ServerRow icon={faClosedCaptioning} label="SUB:" servers={subServers} showRuler={rawServers.length > 0} />
+            <ServerRow icon={faMicrophone} label="DUB:" servers={dubServers} showRuler={subServers.length > 0 || rawServers.length > 0} />
           </div>
         </div>
       ) : (
