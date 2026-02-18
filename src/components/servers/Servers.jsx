@@ -57,7 +57,7 @@ function Servers({
   };
 
   return (
-    <div className="relative bg-[#2a2a2a] p-4 w-full min-h-[100px] flex justify-center items-center max-[1200px]:bg-[#151515] max-[600px]:p-2">
+    <div className="relative bg-[#0a0a0a] p-4 w-full min-h-[100px] flex justify-center items-center max-[1200px]:bg-[#151515] max-[600px]:p-2">
       {serverLoading ? (
         <div className="w-full h-full rounded-lg flex justify-center items-center max-[600px]:rounded-none">
           <BouncingLoader />

@@ -38,7 +38,7 @@ function MobileSearch({ onClose }) {
                 <div className="relative flex-1">
                     <input
                         type="text"
-                        className="w-full px-5 py-2 bg-[#2a2a2a]/75 text-white rounded-lg focus:outline-none transition-colors placeholder-white/50"
+                        className="w-full px-5 py-2 bg-[#0a0a0a]/75 text-white rounded-lg focus:outline-none transition-colors placeholder-white/50"
                         placeholder="Search anime..."
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
@@ -72,7 +72,7 @@ function MobileSearch({ onClose }) {
                 <Link
                     to={location.pathname === "/random" ? "#" : "/random"}
                     onClick={handleRandomClick}
-                    className="p-[10px] aspect-square bg-[#2a2a2a]/75 text-white/50 hover:text-white rounded-lg transition-colors flex items-center justify-center shrink-0"
+                    className="p-[10px] aspect-square bg-[#0a0a0a]/75 text-white/50 hover:text-white rounded-lg transition-colors flex items-center justify-center shrink-0"
                     title="Random Anime"
                 >
                     <FontAwesomeIcon icon={faRandom} className="text-lg" />

@@ -73,7 +73,7 @@ function Sidecard({ data, label, className }) {
                     </span>
                     <div className="flex flex-wrap items-center gap-2">
                       {item.tvInfo?.sub && (
-                        <div className="flex items-center gap-1 px-1.5 py-0.5 bg-[#2a2a2a] rounded text-gray-300">
+                        <div className="flex items-center gap-1 px-1.5 py-0.5 bg-[#0a0a0a] rounded text-gray-300">
                           <FontAwesomeIcon
                             icon={faClosedCaptioning}
                             className="text-[10px]"
@@ -84,7 +84,7 @@ function Sidecard({ data, label, className }) {
                         </div>
                       )}
                       {item.tvInfo?.dub && (
-                        <div className="flex items-center gap-1 px-1.5 py-0.5 bg-[#2a2a2a] rounded text-gray-300">
+                        <div className="flex items-center gap-1 px-1.5 py-0.5 bg-[#0a0a0a] rounded text-gray-300">
                           <FontAwesomeIcon
                             icon={faMicrophone}
                             className="text-[10px]"

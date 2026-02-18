@@ -40,11 +40,11 @@ const DiscordPopup = () => {
                 }`}
         >
             <div
-                className={`bg-[#2a2a2a] border border-[#111111] rounded-2xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.8)] overflow-hidden max-w-sm w-full transition-all duration-300 transform ${isVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
+                className={`bg-[#0a0a0a] border border-[#111111] rounded-2xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.8)] overflow-hidden max-w-sm w-full transition-all duration-300 transform ${isVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
                     }`}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between p-5 border-b border-[#111111] bg-[#2a2a2a]">
+                <div className="flex items-center justify-between p-5 border-b border-[#111111] bg-[#0a0a0a]">
                     <div className="flex items-center gap-3">
                         <div className="p-2.5 bg-[#5865F2] text-white rounded-xl shadow-md">
                             <FaDiscord className="text-xl" />
@@ -56,14 +56,14 @@ const DiscordPopup = () => {
                     </div>
                     <button
                         onClick={handleClose}
-                        className="p-1.5 hover:bg-[#2a2a2a] rounded-full transition-colors text-gray-400 hover:text-white"
+                        className="p-1.5 hover:bg-[#0a0a0a] rounded-full transition-colors text-gray-400 hover:text-white"
                     >
                         <X size={18} />
                     </button>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 bg-[#2a2a2a]">
+                <div className="p-6 bg-[#0a0a0a]">
                     <p className="text-[13px] text-gray-400 leading-relaxed font-medium">
                         Join our official channels for early updates, announcements, and to connect with other fans!
                     </p>

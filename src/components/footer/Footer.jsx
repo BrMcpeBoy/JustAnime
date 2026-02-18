@@ -15,7 +15,7 @@ function Footer() {
               alt={logoTitle}
               className="h-[100px] w-[200px] object-contain"
             />
-            <div className="flex items-center gap-4 border-l border-[#20c8a0]/15 pl-6 h-10">
+            <div className="flex items-center gap-4 border-l border-white/10 pl-6 h-10">
               <a
                 href="https://discord.gg/P3yqksmGun"
                 target="_blank"
@@ -37,12 +37,12 @@ function Footer() {
         </div>
       </div>
 
-      <div className="bg-[#080a0e] border-t border-[#20c8a0]/08">
+      <div className="bg-[#0a0a0a] border-t border-white/10">
         <div className="max-w-[1920px] mx-auto px-4 py-6">
           {/* A-Z List Section */}
           <div className="mb-6 text-center sm:text-left">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4 items-center sm:items-start">
-              <h2 className="text-sm font-medium text-[#20c8a0]">A-Z LIST</h2>
+              <h2 className="text-sm font-medium text-white">A-Z LIST</h2>
               <span className="text-sm text-white/40">Browse anime alphabetically</span>
             </div>
             <div className="flex flex-wrap gap-1.5 justify-center sm:justify-start">
@@ -50,7 +50,7 @@ function Footer() {
                 <Link
                   to={`az-list/${item === "All" ? "" : item}`}
                   key={index}
-                  className="px-2.5 py-1 text-sm bg-[#0d1a1a] border border-[#20c8a0]/12 hover:border-[#20c8a0]/30 hover:bg-[#20c8a0]/08 text-white/50 hover:text-[#20c8a0] rounded transition-all duration-200"
+                  className="px-2.5 py-1 text-sm bg-[#0a0a0a] border border-white/10 hover:border-white/10 hover:bg-[#1a1a1a] text-white/50 hover:text-white rounded transition-all duration-200"
                 >
                   {item}
                 </Link>
@@ -59,19 +59,19 @@ function Footer() {
             <div className="flex gap-4 flex-wrap justify-center sm:justify-start mt-4">
               <Link
                 to="/terms-of-service"
-                className="text-sm text-white/40 hover:text-[#20c8a0] transition-colors"
+                className="text-sm text-white/40 hover:text-white transition-colors"
               >
                 Terms of Service
               </Link>
               <Link
                 to="/dmca"
-                className="text-sm text-white/40 hover:text-[#20c8a0] transition-colors"
+                className="text-sm text-white/40 hover:text-white transition-colors"
               >
                 DMCA
               </Link>
               <Link
                 to="/contact"
-                className="text-sm text-white/40 hover:text-[#20c8a0] transition-colors"
+                className="text-sm text-white/40 hover:text-white transition-colors"
               >
                 Contact
               </Link>
@@ -79,7 +79,7 @@ function Footer() {
           </div>
 
           {/* Legal Text */}
-          <div className="space-y-2 text-sm text-white/30 text-center sm:text-left border-t border-[#20c8a0]/06 pt-4">
+          <div className="space-y-2 text-sm text-white/30 text-center sm:text-left border-t border-white/10 pt-4">
             <p className="max-w-4xl mx-auto sm:mx-0">
               {website_name} does not host any files, it merely pulls streams from
               3rd party services. Legal issues should be taken up with the file

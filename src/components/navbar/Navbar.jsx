@@ -81,7 +81,7 @@ function Navbar() {
               <Link
                 to={location.pathname === "/random" ? "#" : "/random"}
                 onClick={handleRandomClick}
-                className="p-[10px] aspect-square bg-[#2a2a2a]/75 text-white/50 hover:text-white rounded-lg transition-colors flex items-center justify-center"
+                className="p-[10px] aspect-square bg-[#0a0a0a]/75 text-white/50 hover:text-white rounded-lg transition-colors flex items-center justify-center"
                 title="Random Anime"
               >
                 <FontAwesomeIcon icon={faRandom} className="text-lg" />
@@ -110,7 +110,7 @@ function Navbar() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-              className="p-[10px] aspect-square bg-[#2a2a2a]/75 text-white/50 hover:text-white rounded-lg transition-colors flex items-center justify-center w-[38px] h-[38px]"
+              className="p-[10px] aspect-square bg-[#0a0a0a]/75 text-white/50 hover:text-white rounded-lg transition-colors flex items-center justify-center w-[38px] h-[38px]"
               title={isMobileSearchOpen ? "Close Search" : "Search Anime"}
             >
               <FontAwesomeIcon 

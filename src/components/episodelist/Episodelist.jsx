@@ -138,7 +138,7 @@ function Episodelist({
 
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-2.5 bg-[#2a2a2a] border-b border-[#111111] max-[600px]:px-2">
+      <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-2.5 bg-[#0a0a0a] border-b border-white/5 max-[600px]:px-2">
         <div className="flex items-center gap-4 max-[600px]:gap-2">
           <h1 className="text-[14px] font-semibold text-white max-[600px]:text-[13px]">Episodes</h1>
           {totalEpisodes > 100 && (
@@ -157,7 +157,7 @@ function Episodelist({
                   className="text-[10px]"
                 />
                 {showDropDown && (
-                  <div className="absolute top-full mt-2 left-0 z-30 bg-[#2a2a2a] w-[150px] max-h-[200px] overflow-y-auto rounded-lg border border-[#1a1a1a] shadow-lg">
+                  <div className="absolute top-full mt-2 left-0 z-30 bg-[#0a0a0a] w-[150px] max-h-[200px] overflow-y-auto rounded-lg border border-white/5 shadow-lg">
                     {generateRangeOptions(totalEpisodes).map((item, index) => (
                       <div
                         key={index}
@@ -165,8 +165,8 @@ function Episodelist({
                           handleRangeSelect(item);
                           setActiveRange(item);
                         }}
-                        className={`hover:bg-[#1a1a1a] cursor-pointer transition-colors ${
-                          item === activeRange ? "bg-[#2a2a2a]" : ""
+                        className={`hover:bg-[#111111] cursor-pointer transition-colors ${
+                          item === activeRange ? "bg-[#1a1a1a]" : ""
                         }`}
                       >
                         <p className="font-medium text-[12px] p-2.5 flex justify-between items-center text-gray-300 hover:text-white max-[600px]:text-[11px] max-[600px]:p-2">
@@ -186,7 +186,7 @@ function Episodelist({
         
         {totalEpisodes > 100 && (
           <div className="flex items-center min-w-[180px] max-[600px]:min-w-[120px]">
-            <div className="w-full flex items-center gap-2 px-3 py-1.5 bg-[#2a2a2a] rounded-lg border border-[#1a1a1a] focus-within:border-gray-500 transition-colors max-[600px]:px-2 max-[600px]:py-1">
+            <div className="w-full flex items-center gap-2 px-3 py-1.5 bg-[#0a0a0a] rounded-lg border border-white/5 focus-within:border-white/20 transition-colors max-[600px]:px-2 max-[600px]:py-1">
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
                 className="text-[12px] text-gray-400"
@@ -202,7 +202,7 @@ function Episodelist({
         )}
       </div>
       
-      <div ref={listContainerRef} className="w-full flex-1 overflow-y-auto bg-[#2a2a2a] max-h-[calc(100vh-200px)] max-[1200px]:max-h-[400px]">
+      <div ref={listContainerRef} className="w-full flex-1 overflow-y-auto bg-[#0a0a0a] max-h-[calc(100vh-200px)] max-[1200px]:max-h-[400px]">
         <div
           className={`${
             totalEpisodes > 30
@@ -231,14 +231,14 @@ function Episodelist({
                         item?.filler
                           ? isActive
                             ? "bg-white text-black"
-                            : "bg-[#2a2a2a] text-gray-400"
+                            : "bg-[#111111] text-gray-400"
                           : ""
-                      } hover:bg-[#2a2a2a] 
+                      } hover:bg-[#1a1a1a] 
                           hover:text-white
                        ${
                          isActive
                            ? "bg-white text-black ring-1 ring-white"
-                           : "bg-[#2a2a2a] text-gray-400"
+                           : "bg-[#111111] text-gray-400"
                        } ${isSearched ? "ring-2 ring-white" : ""}`}
                       onClick={() => {
                         if (episodeNumber) {
@@ -267,10 +267,10 @@ function Episodelist({
                     ref={isActive ? activeEpisodeRef : null}
                     className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 ${
                       (index + 1) % 2 && !isActive
-                        ? "bg-[#202020]"
-                        : "bg-[#2a2a2a]"
-                    } hover:bg-[#2a2a2a] ${
-                      isActive ? "bg-[#2a2a2a]" : ""
+                        ? "bg-[#111111]"
+                        : "bg-[#0a0a0a]"
+                    } hover:bg-[#1a1a1a] ${
+                      isActive ? "bg-[#1a1a1a] border-l-2 border-white" : ""
                     } ${isSearched ? "ring-1 ring-white" : ""}`}
                     onClick={() => {
                       if (episodeNumber) {

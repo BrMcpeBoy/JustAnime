@@ -373,7 +373,7 @@ export default function Watch() {
                   {/* Next Episode Schedule */}
                   {nextEpisodeSchedule?.nextEpisodeSchedule && showNextEpisodeSchedule && (
                     <div className="px-3 pb-3">
-                      <div className="w-full p-3 rounded-lg bg-[#111111] border border-white/5 flex items-center justify-between">
+                      <div className="w-full p-3 rounded-lg bg-[#0a0a0a] flex items-center justify-between">
                         <div className="flex items-center gap-x-3">
                           <span className="text-[18px]">🚀</span>
                           <div>
@@ -510,7 +510,7 @@ export default function Watch() {
                         tags.map(
                           ({ condition, icon, text }, index) =>
                             condition && (
-                              <span key={index} className="px-3 py-1 bg-[#2a2a2a] rounded-full text-sm flex items-center gap-x-1 text-gray-300 max-[600px]:px-2 max-[600px]:py-0.5 max-[600px]:text-[11px]">
+                              <span key={index} className="px-3 py-1 bg-[#0a0a0a] rounded-full text-sm flex items-center gap-x-1 text-gray-300 max-[600px]:px-2 max-[600px]:py-0.5 max-[600px]:text-[11px]">
                                 {icon && <FontAwesomeIcon icon={icon} className="text-[12px] max-[600px]:text-[10px]" />}
                                 {text}
                               </span>

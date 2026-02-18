@@ -152,7 +152,7 @@ function AnimeInfo({ random = false }) {
     },
     {
       condition: info.tvInfo?.quality,
-      bgColor: "#ffffff",
+      bgColor: "#FFBADE",
       text: info.tvInfo.quality,
     },
     {
@@ -275,7 +275,7 @@ function AnimeInfo({ random = false }) {
                 {animeInfo?.animeInfo?.Status?.toLowerCase() !== "not-yet-aired" ? (
                   <Link
                     to={`/watch/${animeInfo.id}`}
-                    className="flex justify-center items-center w-full px-4 py-3 bg-white/10 backdrop-blur-md rounded-lg text-white transition-all duration-300 hover:bg-white/20 group"
+                    className="flex justify-center items-center w-full px-4 py-3 bg-white/10 border border-white/10 rounded-lg text-white transition-all duration-300 hover:bg-white/20 group"
                   >
                     <FontAwesomeIcon
                       icon={faPlay}
@@ -284,14 +284,14 @@ function AnimeInfo({ random = false }) {
                     <span className="font-medium text-sm">Watch Now</span>
                   </Link>
                 ) : (
-                  <div className="flex justify-center items-center w-full px-4 py-3 bg-gray-700/50 rounded-lg">
+                  <div className="flex justify-center items-center w-full px-4 py-3 bg-[#111111] border border-white/5 rounded-lg">
                     <span className="font-medium text-sm">Not released</span>
                   </div>
                 )}
               </div>
 
               {/* Details Section - Full Width on Mobile */}
-              <div className="mt-6 space-y-3 py-3 backdrop-blur-md bg-white/5 rounded-lg px-3 text-xs">
+              <div className="mt-6 space-y-3 py-3 bg-[#0a0a0a] border border-white/5 rounded-lg px-3 text-xs">
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { label: "Japanese", value: info?.Japanese },
@@ -415,7 +415,7 @@ function AnimeInfo({ random = false }) {
                   {animeInfo?.animeInfo?.Status?.toLowerCase() !== "not-yet-aired" ? (
                     <Link
                       to={`/watch/${animeInfo.id}`}
-                      className="inline-flex items-center px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-xl text-white transition-all duration-300 hover:bg-white/20 hover:scale-[1.02] group"
+                      className="inline-flex items-center px-5 py-2.5 bg-white/10 border border-white/10 rounded-xl text-white transition-all duration-300 hover:bg-white/20 hover:scale-[1.02] group"
                     >
                       <FontAwesomeIcon
                         icon={faPlay}
@@ -424,13 +424,13 @@ function AnimeInfo({ random = false }) {
                       <span className="font-medium">Watch Now</span>
                     </Link>
                   ) : (
-                    <div className="inline-flex items-center px-5 py-2.5 bg-gray-700/50 rounded-xl">
+                    <div className="inline-flex items-center px-5 py-2.5 bg-[#111111] border border-white/5 rounded-xl">
                       <span className="font-medium">Not released</span>
                     </div>
                   )}
 
                   {/* Details Section */}
-                  <div className="space-y-4 py-4 backdrop-blur-md bg-white/5 rounded-xl px-5">
+                  <div className="space-y-4 py-4 bg-[#0a0a0a] border border-white/5 rounded-xl px-5">
                     <div className="grid grid-cols-2 gap-3">
                       {[
                         { label: "Japanese", value: info?.Japanese },

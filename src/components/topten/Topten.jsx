@@ -53,13 +53,13 @@ function Topten({ data, className }) {
     <div className={`flex flex-col space-y-4 ${className}`}>
       <div className="flex justify-between items-center max-[350px]:flex-col max-[350px]:gap-y-2 max-[350px]:items-start">
         <h1 className="font-bold text-2xl text-white tracking-tight">Top 10</h1>
-        <ul className="flex justify-between w-fit bg-[#2a2a2a] rounded-lg overflow-hidden shadow-lg">
+        <ul className="flex justify-between w-fit bg-[#0a0a0a] border border-white/5 rounded-lg overflow-hidden shadow-lg">
           {["today", "week", "month"].map((period) => (
             <li
               key={period}
               className={`cursor-pointer p-1.5 px-4 transition-all duration-200 ${activePeriod === period
                 ? "bg-white text-black font-medium"
-                : "text-gray-400 hover:text-white hover:bg-[#2a2a2a]"
+                : "text-gray-400 hover:text-white hover:bg-[#111111]"
                 }`}
               onClick={() => handlePeriodChange(period)}
             >
@@ -69,7 +69,7 @@ function Topten({ data, className }) {
         </ul>
       </div>
 
-      <div className="flex flex-col space-y-3 bg-[#2a2a2a] p-3 pt-6 rounded-lg shadow-lg">
+      <div className="flex flex-col space-y-3 bg-[#111111] p-3 pt-6 rounded-lg shadow-lg">
         {currentData &&
           currentData.map((item, index) => (
             <div
@@ -92,7 +92,7 @@ function Topten({ data, className }) {
                       ? "1px solid rgba(255, 255, 255, .1)"
                       : "none",
                 }}
-                className="flex pb-3 relative container items-center group-hover:bg-[#2a2a2a] transition-colors duration-200 rounded-lg p-1.5"
+                className="flex pb-3 relative container items-center group-hover:bg-[#111111] transition-colors duration-200 rounded-lg p-1.5"
               >
                 <img
                   src={`${item.poster}`}
