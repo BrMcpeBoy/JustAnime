@@ -45,9 +45,9 @@ function Navbar() {
           <div className="flex items-center gap-5">
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="w-8 h-8 flex items-center justify-center border border-white/10 hover:border-white/25 hover:bg-white/5 rounded-md transition-all duration-200"
+              className="w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-md transition-all duration-200"
             >
-              <FontAwesomeIcon icon={faBars} className="text-white/70 hover:text-white text-sm" />
+              <FontAwesomeIcon icon={faBars} className="text-white/70 hover:text-white text-base" />
             </button>
             <Link to="/home" className="flex items-center">
               <img src="/logo.png" alt="JustAnime Logo" className="h-9 w-auto" />
