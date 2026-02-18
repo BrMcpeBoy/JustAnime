@@ -17,7 +17,7 @@ const Trending = ({ trending, className }) => {
         <FontAwesomeIcon icon={faFire} className="text-white/90" />
         <h2 className="text-xl font-semibold text-white">Trending Now</h2>
       </div>
-      <div className="flex flex-col space-y-2 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-track-[#111111] scrollbar-thumb-[#1a1a1a] hover:scrollbar-thumb-[#333] scrollbar-thumb-rounded">
+      <div className="flex flex-col space-y-2 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-track-[#111111] scrollbar-thumb-[#1a1a1a] hover:scrollbar-thumb-[#2a2a2a] scrollbar-thumb-rounded">
         {trending &&
           trending.map((item, index) => (
             <div key={index} className="group">
@@ -43,31 +43,19 @@ const Trending = ({ trending, className }) => {
                     </span>
                     <div className="flex flex-wrap items-center gap-2">
                       {item.tvInfo?.sub && (
-                        <div className="flex items-center gap-1 px-1.5 py-0.5 bg-[#0a0a0a] rounded text-gray-300">
-                          <FontAwesomeIcon
-                            icon={faClosedCaptioning}
-                            className="text-[10px]"
-                          />
-                          <span className="text-[10px] font-medium">
-                            {item.tvInfo.sub}
-                          </span>
+                        <div className="flex items-center gap-1 px-1.5 py-0.5 bg-[#111111] border border-white/5 rounded text-gray-300">
+                          <FontAwesomeIcon icon={faClosedCaptioning} className="text-[10px]" />
+                          <span className="text-[10px] font-medium">{item.tvInfo.sub}</span>
                         </div>
                       )}
                       {item.tvInfo?.dub && (
-                        <div className="flex items-center gap-1 px-1.5 py-0.5 bg-[#0a0a0a] rounded text-gray-300">
-                          <FontAwesomeIcon
-                            icon={faMicrophone}
-                            className="text-[10px]"
-                          />
-                          <span className="text-[10px] font-medium">
-                            {item.tvInfo.dub}
-                          </span>
+                        <div className="flex items-center gap-1 px-1.5 py-0.5 bg-[#111111] border border-white/5 rounded text-gray-300">
+                          <FontAwesomeIcon icon={faMicrophone} className="text-[10px]" />
+                          <span className="text-[10px] font-medium">{item.tvInfo.dub}</span>
                         </div>
                       )}
                       {item.tvInfo?.showType && (
-                        <span className="text-xs text-gray-400">
-                          {item.tvInfo.showType}
-                        </span>
+                        <span className="text-xs text-gray-400">{item.tvInfo.showType}</span>
                       )}
                     </div>
                   </div>
