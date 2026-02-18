@@ -190,12 +190,10 @@ export default function Watch() {
   function Tag({ bgColor, index, icon, text }) {
     return (
       <div
-        className={`flex space-x-1 justify-center items-center px-[4px] py-[1px] text-black font-semibold text-[13px] ${index === 0 ? "rounded-l-[4px]" : "rounded-none"
-          }`}
-        style={{ backgroundColor: bgColor }}
+        className="flex space-x-1 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-gray-300 font-medium text-[11px]"
       >
-        {icon && <FontAwesomeIcon icon={icon} className="text-[12px]" />}
-        <p className="text-[12px]">{text}</p>
+        {icon && <FontAwesomeIcon icon={icon} className="text-[11px] text-gray-300" />}
+        <p className="text-[11px] text-gray-300">{text}</p>
       </div>
     );
   }
@@ -510,8 +508,8 @@ export default function Watch() {
                         tags.map(
                           ({ condition, icon, text }, index) =>
                             condition && (
-                              <span key={index} className="px-3 py-1 bg-[#0a0a0a] rounded-full text-sm flex items-center gap-x-1 text-gray-300 max-[600px]:px-2 max-[600px]:py-0.5 max-[600px]:text-[11px]">
-                                {icon && <FontAwesomeIcon icon={icon} className="text-[12px] max-[600px]:text-[10px]" />}
+                              <span key={index} className="flex items-center gap-x-1 bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[11px] font-medium text-gray-300 max-[600px]:text-[10px]">
+                                {icon && <FontAwesomeIcon icon={icon} className="text-[11px] text-gray-300 max-[600px]:text-[10px]" />}
                                 {text}
                               </span>
                             )
