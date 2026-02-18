@@ -89,7 +89,7 @@ function Servers({
     ) : null;
 
   return (
-    <div className="relative bg-[#0a0a0a] border border-white/5 rounded-lg p-4 w-full min-h-[80px] flex justify-center items-center max-[600px]:p-3">
+    <div className="relative bg-[#0a0a0a] w-full min-h-[80px] flex justify-center items-center">
       {serverLoading ? (
         <div className="w-full flex justify-center items-center py-4">
           <BouncingLoader />
