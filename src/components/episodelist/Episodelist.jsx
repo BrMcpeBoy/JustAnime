@@ -264,7 +264,6 @@ function Episodelist({
                   (ep) => ep?.id.match(/ep=(\d+)/)?.[1] === (activeEpisodeId || currentEpisode)
                 );
                 const progress = episodes.length > 1 ? activeIndex / (episodes.length - 1) : 0;
-                const isLast = index === episodes.length - 1;
 
                 return (
                   <div key={item?.id} className="relative">
@@ -298,24 +297,30 @@ function Episodelist({
                         )}
                       </div>
                     </div>
-                    {/* Progress ruler shown on last item */}
-                    {isLast && (
-                      <div className="absolute bottom-0 left-0 right-0 h-[2px] pointer-events-none overflow-hidden">
-                        <div
-                          className="h-full bg-white/50"
-                          style={{
-                            width: `${progress * 100}%`,
-                            maskImage: "linear-gradient(to right, white 55%, transparent 92%)",
-                            WebkitMaskImage: "linear-gradient(to right, white 55%, transparent 92%)",
-                          }}
-                        />
-                      </div>
-                    )}
                   </div>
                 );
               })}
         </div>
       </div>
+      {totalEpisodes <= 30 && (() => {
+        const activeIndex = episodes ? episodes.findIndex(
+          (ep) => ep?.id.match(/ep=(\d+)/)?.[1] === (activeEpisodeId || currentEpisode)
+        ) : -1;
+        const progress = episodes && episodes.length > 1 ? activeIndex / (episodes.length - 1) : 0;
+        return (
+          <div className="relative h-[2px] w-full overflow-hidden">
+            <div
+              className="h-full bg-white/40"
+              style={{
+                width: `${progress * 100}%`,
+                maskImage: "linear-gradient(to right, white 60%, transparent 95%)",
+                WebkitMaskImage: "linear-gradient(to right, white 60%, transparent 95%)",
+                transition: "width 0.4s ease",
+              }}
+            />
+          </div>
+        );
+      })()}
     </div>
   );
 }
