@@ -78,10 +78,10 @@ function InfoItem({ label, value, isProducer = true }) {
 function Tag({ bgColor, index, icon, text }) {
   return (
     <div
-      className="flex space-x-1 justify-center items-center px-2 sm:px-3 py-0.5 sm:py-1 text-white backdrop-blur-md bg-white/10 font-medium text-[10px] sm:text-[13px] rounded-md sm:rounded-full transition-all duration-300 hover:bg-white/20"
+      className="flex space-x-1 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-gray-300 font-medium text-[11px] transition-all duration-200"
     >
-      {icon && <FontAwesomeIcon icon={icon} className="text-[10px] sm:text-[12px] mr-1" />}
-      <p className="text-[10px] sm:text-[12px]">{text}</p>
+      {icon && <FontAwesomeIcon icon={icon} className="text-[11px] text-gray-300" />}
+      <p className="text-[11px] text-gray-300">{text}</p>
     </div>
   );
 }
