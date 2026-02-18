@@ -373,7 +373,7 @@ export default function Watch() {
                   {/* Next Episode Schedule */}
                   {nextEpisodeSchedule?.nextEpisodeSchedule && showNextEpisodeSchedule && (
                     <div className="px-3 pb-3">
-                      <div className="w-full p-3 rounded-lg bg-[#0a0a0a] flex items-center justify-between">
+                      <div className="w-full p-3 rounded-lg bg-[#0a0a0a] border border-white/10 flex items-center justify-between">
                         <div className="flex items-center gap-x-3">
                           <span className="text-[18px]">🚀</span>
                           <div>
