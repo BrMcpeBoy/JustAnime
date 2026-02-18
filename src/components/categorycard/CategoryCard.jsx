@@ -137,44 +137,44 @@ const CategoryCard = React.memo(
                     <div className="absolute bottom-0 left-0 right-0 p-3 pb-2 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
                       <div className="flex items-center justify-start w-full space-x-1.5 z-[100] flex-wrap gap-y-1.5">
                         {item.tvInfo?.sub && (
-                          <div className="flex space-x-0.5 justify-center items-center bg-[#0a0a0a] rounded-[2px] px-2 text-white py-1">
+                          <div className="flex space-x-0.5 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5">
                             <FontAwesomeIcon
                               icon={faClosedCaptioning}
-                              className="text-[11px]"
+                              className="text-[11px] text-gray-300"
                             />
-                            <p className="text-[11px] font-medium">
+                            <p className="text-[11px] font-medium text-gray-300">
                               {item.tvInfo.sub}
                             </p>
                           </div>
                         )}
                         {item.tvInfo?.dub && (
-                          <div className="flex space-x-0.5 justify-center items-center bg-[#0a0a0a] rounded-[2px] px-2 text-white py-1">
+                          <div className="flex space-x-0.5 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5">
                             <FontAwesomeIcon
                               icon={faMicrophone}
-                              className="text-[11px]"
+                              className="text-[11px] text-gray-300"
                             />
-                            <p className="text-[11px] font-medium">
+                            <p className="text-[11px] font-medium text-gray-300">
                               {item.tvInfo.dub}
                             </p>
                           </div>
                         )}
                         {item.tvInfo?.showType && (
-                          <div className="bg-[#0a0a0a] text-white rounded-[2px] px-2 py-1 text-[11px] font-medium">
+                          <div className="bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[11px] font-medium text-gray-300">
                             {item.tvInfo.showType.split(" ").shift()}
                           </div>
                         )}
                         {item.releaseDate && (
-                          <div className="bg-[#0a0a0a] text-white rounded-[2px] px-2 py-1 text-[11px] font-medium">
+                          <div className="bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[11px] font-medium text-gray-300">
                             {item.releaseDate}
                           </div>
                         )}
                         {!item.tvInfo?.showType && item.type && (
-                          <div className="bg-[#0a0a0a] text-white rounded-[2px] px-2 py-1 text-[11px] font-medium">
+                          <div className="bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[11px] font-medium text-gray-300">
                             {item.type}
                           </div>
                         )}
                         {(item.tvInfo?.duration || item.duration) && (
-                          <div className="bg-[#0a0a0a] text-white rounded-[2px] px-2 py-1 text-[11px] font-medium">
+                          <div className="bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[11px] font-medium text-gray-300">
                             {item.tvInfo?.duration === "m" ||
                               item.tvInfo?.duration === "?" ||
                               item.duration === "m" ||
@@ -243,44 +243,44 @@ const CategoryCard = React.memo(
                   <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
                     <div className="flex items-center justify-start w-full space-x-1 max-[478px]:space-x-0.5 z-[100] flex-wrap gap-y-1">
                       {item.tvInfo?.sub && (
-                        <div className="flex space-x-0.5 justify-center items-center bg-[#0a0a0a] rounded-[2px] px-1.5 text-white py-0.5 max-[478px]:py-0.5 max-[478px]:px-1">
+                        <div className="flex space-x-0.5 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5">
                           <FontAwesomeIcon
                             icon={faClosedCaptioning}
-                            className="text-[10px]"
+                            className="text-[10px] text-gray-300"
                           />
-                          <p className="text-[10px] font-medium">
+                          <p className="text-[10px] font-medium text-gray-300">
                             {item.tvInfo.sub}
                           </p>
                         </div>
                       )}
                       {item.tvInfo?.dub && (
-                        <div className="flex space-x-0.5 justify-center items-center bg-[#0a0a0a] rounded-[2px] px-1.5 text-white py-0.5 max-[478px]:py-0.5 max-[478px]:px-1">
+                        <div className="flex space-x-0.5 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5">
                           <FontAwesomeIcon
                             icon={faMicrophone}
-                            className="text-[10px]"
+                            className="text-[10px] text-gray-300"
                           />
-                          <p className="text-[10px] font-medium">
+                          <p className="text-[10px] font-medium text-gray-300">
                             {item.tvInfo.dub}
                           </p>
                         </div>
                       )}
                       {item.tvInfo?.showType && (
-                        <div className="bg-[#0a0a0a] text-white rounded-[2px] px-1.5 py-0.5 text-[10px] font-medium max-[478px]:py-0.5 max-[478px]:px-1 max-[478px]:hidden">
+                        <div className="bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[10px] font-medium text-gray-300 max-[478px]:hidden">
                           {item.tvInfo.showType.split(" ").shift()}
                         </div>
                       )}
                       {item.releaseDate && (
-                        <div className="bg-[#0a0a0a] text-white rounded-[2px] px-1.5 py-0.5 text-[10px] font-medium max-[478px]:py-0.5 max-[478px]:px-1">
+                        <div className="bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[10px] font-medium text-gray-300">
                           {item.releaseDate}
                         </div>
                       )}
                       {!item.tvInfo?.showType && item.type && (
-                        <div className="bg-[#0a0a0a] text-white rounded-[2px] px-1.5 py-0.5 text-[10px] font-medium max-[478px]:py-0.5 max-[478px]:px-1">
+                        <div className="bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[10px] font-medium text-gray-300">
                           {item.type}
                         </div>
                       )}
                       {(item.tvInfo?.duration || item.duration) && (
-                        <div className="bg-[#0a0a0a] text-white rounded-[2px] px-1.5 py-0.5 text-[10px] font-medium max-[478px]:py-0.5 max-[478px]:px-1 max-[478px]:hidden">
+                        <div className="bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[10px] font-medium text-gray-300 max-[478px]:hidden">
                           {item.tvInfo?.duration === "m" ||
                             item.tvInfo?.duration === "?" ||
                             item.duration === "m" ||
