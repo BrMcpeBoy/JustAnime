@@ -129,3 +129,8 @@ div[role="button"] {
     background: rgba(255, 255, 255, 0.5);
   }
 }
+
+@keyframes playingPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}

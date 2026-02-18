@@ -285,10 +285,16 @@ function Episodelist({
                         {language === "EN" ? item?.title : item?.japanese_title}
                       </h1>
                       {isActive && (
-                        <FontAwesomeIcon
-                          icon={faCirclePlay}
-                          className="w-[18px] h-[18px] text-white max-[600px]:w-[16px] max-[600px]:h-[16px]"
-                        />
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span
+                            className="text-white text-[11px] font-semibold tracking-widest uppercase"
+                            style={{ animation: "playingPulse 1.5s ease-in-out infinite" }}
+                          >Playing</span>
+                          <FontAwesomeIcon
+                            icon={faCirclePlay}
+                            className="w-[18px] h-[18px] text-white max-[600px]:w-[16px] max-[600px]:h-[16px]"
+                          />
+                        </div>
                       )}
                     </div>
                     {/* Fading separator line */}
