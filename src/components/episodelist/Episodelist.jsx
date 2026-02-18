@@ -265,7 +265,7 @@ function Episodelist({
                   <div
                     key={item?.id}
                     ref={isActive ? activeEpisodeRef : null}
-                    className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 bg-[#0a0a0a] hover:bg-[#1a1a1a] border-b border-white/5 ${
+                    className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 bg-[#0a0a0a] hover:bg-[#1a1a1a] relative ${
                       isActive ? "border-l-2 border-l-white" : ""
                     } ${isSearched ? "ring-1 ring-white" : ""}`}
                     onClick={() => {
@@ -292,6 +292,13 @@ function Episodelist({
                         />
                       )}
                     </div>
+                    {/* Fading separator line */}
+                    <div
+                      className="absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none"
+                      style={{
+                        background: "linear-gradient(to right, rgba(255,255,255,0.08) 70%, transparent 100%)",
+                      }}
+                    />
                   </div>
                 );
               })}
