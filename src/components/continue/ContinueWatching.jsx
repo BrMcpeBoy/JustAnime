@@ -46,10 +46,10 @@ const ContinueWatching = () => {
         </div>
 
         <div className="flex gap-x-3 pr-2 max-[350px]:hidden">
-          <button className="continue-btn-prev bg-gray-800 text-gray-300 p-3 rounded-lg hover:bg-gray-700 hover:text-white transition-all duration-300 shadow-lg">
+          <button className="continue-btn-prev w-8 h-8 flex items-center justify-center border border-white/10 hover:border-white/25 hover:bg-white/5 rounded-lg text-white/70 hover:text-white transition-all duration-200 focus:outline-none active:scale-95">
             <FaChevronLeft className="text-sm" />
           </button>
-          <button className="continue-btn-next bg-gray-800 text-gray-300 p-3 rounded-lg hover:bg-gray-700 hover:text-white transition-all duration-300 shadow-lg">
+          <button className="continue-btn-next w-8 h-8 flex items-center justify-center border border-white/10 hover:border-white/25 hover:bg-white/5 rounded-lg text-white/70 hover:text-white transition-all duration-200 focus:outline-none active:scale-95">
             <FaChevronRight className="text-sm" />
           </button>
         </div>
