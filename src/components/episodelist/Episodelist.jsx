@@ -137,7 +137,7 @@ function Episodelist({
   }, [activeEpisodeId, episodes]);
 
   return (
-    <div className="flex flex-col w-full h-full relative">
+    <div className="flex flex-col w-full h-full">
       <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-2.5 bg-[#0a0a0a] border-b border-white/5 max-[600px]:px-2">
         <div className="flex items-center gap-4 max-[600px]:gap-2">
           <h1 className="text-[14px] font-semibold text-white max-[600px]:text-[13px]">Episodes</h1>
@@ -266,8 +266,7 @@ function Episodelist({
                     key={item?.id}
                     ref={isActive ? activeEpisodeRef : null}
                     className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 bg-[#0a0a0a] hover:bg-[#1a1a1a] relative ${
-                      isActive ? "" : ""
-                    } ${isSearched ? "ring-1 ring-white" : ""}`}
+                      isSearched ? "ring-1 ring-white" : ""}`}
                     onClick={() => {
                       if (episodeNumber) {
                         onEpisodeClick(episodeNumber);
@@ -292,19 +291,18 @@ function Episodelist({
                         />
                       )}
                     </div>
-
+                    {/* Fading separator line */}
+                    <div
+                      className="absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none"
+                      style={{
+                        background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 8%, rgba(255,255,255,0.08) 75%, transparent 100%)",
+                      }}
+                    />
                   </div>
                 );
               })}
         </div>
       </div>
-      {totalEpisodes <= 30 && (
-        <div className="h-[1px] w-full pointer-events-none"
-          style={{
-            background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 10%, rgba(255,255,255,0.08) 90%, transparent 100%)",
-          }}
-        />
-      )}
     </div>
   );
 }
