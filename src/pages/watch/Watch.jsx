@@ -187,14 +187,13 @@ export default function Watch() {
     };
   }, [buffering, activeServerType, activeServerName, episodeId, streamUrl, episodes]);
 
-  function Tag({ bgColor, index, icon, text }) {
+  function Tag({ borderColor, index, icon, text }) {
     return (
       <div
-        className={`flex space-x-1 justify-center items-center px-[4px] py-[1px] text-black font-semibold text-[13px] ${index === 0 ? "rounded-l-[4px]" : "rounded-none"
-          }`}
-        style={{ backgroundColor: bgColor }}
+        className={`flex space-x-1 justify-center items-center px-[6px] py-[2px] bg-[#0d1a1a] text-white font-medium text-[12px] ${index === 0 ? "rounded-l-[4px]" : "rounded-none"}`}
+        style={{ border: `1px solid ${borderColor}` }}
       >
-        {icon && <FontAwesomeIcon icon={icon} className="text-[12px]" />}
+        {icon && <FontAwesomeIcon icon={icon} className="text-[11px] text-[#20c8a0]" />}
         <p className="text-[12px]">{text}</p>
       </div>
     );
@@ -204,24 +203,24 @@ export default function Watch() {
     setTags([
       {
         condition: animeInfo?.animeInfo?.tvInfo?.rating,
-        bgColor: "#ffffff",
+        borderColor: "rgba(255,255,255,0.2)",
         text: animeInfo?.animeInfo?.tvInfo?.rating,
       },
       {
         condition: animeInfo?.animeInfo?.tvInfo?.quality,
-        bgColor: "#FFBADE",
+        borderColor: "rgba(32,200,160,0.4)",
         text: animeInfo?.animeInfo?.tvInfo?.quality,
       },
       {
         condition: animeInfo?.animeInfo?.tvInfo?.sub,
         icon: faClosedCaptioning,
-        bgColor: "#B0E3AF",
+        borderColor: "rgba(32,200,160,0.35)",
         text: animeInfo?.animeInfo?.tvInfo?.sub,
       },
       {
         condition: animeInfo?.animeInfo?.tvInfo?.dub,
         icon: faMicrophone,
-        bgColor: "#B9E7FF",
+        borderColor: "rgba(32,200,160,0.25)",
         text: animeInfo?.animeInfo?.tvInfo?.dub,
       },
     ]);
@@ -276,7 +275,7 @@ export default function Watch() {
           </script>
         )}
       </Helmet>
-      <div className="w-full min-h-screen bg-[#0a0a0a]">
+      <div className="w-full min-h-screen bg-[#0d0f14]">
         <div className="w-full max-w-[1920px] mx-auto pt-16 pb-6 w-full max-[1200px]:pt-12">
           <div className="grid grid-cols-[minmax(0,70%),minmax(0,30%)] gap-6 w-full h-full max-[1200px]:flex max-[1200px]:flex-col">
             {/* Left Column - Player, Controls, Servers */}
@@ -336,7 +335,7 @@ export default function Watch() {
                 </div>
 
                 {/* Controls Section */}
-                <div className="bg-[#121212]">
+                <div className="bg-[#0d0f14] border-t border-[#20c8a0]/08">
                   {!buffering && (
                     <div ref={controlsRef}>
                       <Watchcontrols
@@ -373,7 +372,7 @@ export default function Watch() {
                   {/* Next Episode Schedule */}
                   {nextEpisodeSchedule?.nextEpisodeSchedule && showNextEpisodeSchedule && (
                     <div className="px-3 pb-3">
-                      <div className="w-full p-3 rounded-lg bg-[#272727] flex items-center justify-between">
+                      <div className="w-full p-3 rounded-lg bg-[#0d1a1a] border border-[#20c8a0]/15 flex items-center justify-between">
                         <div className="flex items-center gap-x-3">
                           <span className="text-[18px]">🚀</span>
                           <div>
@@ -395,7 +394,7 @@ export default function Watch() {
                           </div>
                         </div>
                         <button
-                          className="text-2xl text-gray-500 hover:text-white transition-colors"
+                          className="text-2xl text-white/30 hover:text-[#20c8a0] transition-colors"
                           onClick={() => setShowNextEpisodeSchedule(false)}
                         >
                           ×
@@ -408,7 +407,7 @@ export default function Watch() {
 
               {/* Mobile-only Seasons Section */}
               {seasons?.length > 0 && (
-                <div className="hidden max-[1200px]:block bg-[#141414] rounded-lg p-4">
+                <div className="hidden max-[1200px]:block bg-[#0d1a1a] border border-[#20c8a0]/12 rounded-lg p-4">
                   <h2 className="text-xl font-semibold mb-4 text-white">More Seasons</h2>
                   <div className="grid grid-cols-2 gap-2">
                     {seasons.map((season, index) => (
@@ -416,7 +415,7 @@ export default function Watch() {
                         to={`/${season.id}`}
                         key={index}
                         className={`relative w-full aspect-[3/1] rounded-lg overflow-hidden cursor-pointer group ${animeId === String(season.id)
-                          ? "ring-2 ring-white/40 shadow-lg shadow-white/10"
+                          ? "ring-2 ring-[#20c8a0]/40 shadow-lg shadow-[#20c8a0]/10"
                           : ""
                           }`}
                       >
@@ -458,7 +457,7 @@ export default function Watch() {
 
               {/* Mobile-only Episodes Section */}
               <div className="hidden max-[1200px]:block">
-                <div ref={episodesRef} className="episodes flex-shrink-0 bg-[#141414] rounded-lg overflow-hidden">
+                <div ref={episodesRef} className="episodes flex-shrink-0 bg-[#0d1a1a] border border-[#20c8a0]/12 rounded-lg overflow-hidden">
                   {!episodes ? (
                     <div className="h-full flex items-center justify-center">
                       <BouncingLoader />
@@ -475,7 +474,7 @@ export default function Watch() {
               </div>
 
               {/* Anime Info Section */}
-              <div className="bg-[#141414] rounded-lg p-4">
+              <div className="bg-[#0d1a1a] border border-[#20c8a0]/12 rounded-lg p-4">
                 <div className="flex gap-x-6 max-[600px]:flex-row max-[600px]:gap-4">
                   {animeInfo && animeInfo?.poster ? (
                     <img
@@ -492,10 +491,10 @@ export default function Watch() {
                         to={`/${animeId}`}
                         className="group"
                       >
-                        <h1 className="text-[28px] font-medium text-white leading-tight group-hover:text-gray-300 transition-colors max-[600px]:text-[20px]">
+                        <h1 className="text-[28px] font-medium text-white leading-tight group-hover:text-[#20c8a0] transition-colors max-[600px]:text-[20px]">
                           {getSafeTitle(animeInfo.title, language, animeInfo.japanese_title)}
                         </h1>
-                        <div className="flex items-center gap-1.5 mt-1 text-gray-400 text-sm group-hover:text-white transition-colors max-[600px]:text-[12px] max-[600px]:mt-0.5">
+                        <div className="flex items-center gap-1.5 mt-1 text-white/40 text-sm group-hover:text-[#20c8a0] transition-colors max-[600px]:text-[12px] max-[600px]:mt-0.5">
                           <span>View Details</span>
                           <svg className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform max-[600px]:w-3 max-[600px]:h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -510,7 +509,7 @@ export default function Watch() {
                         tags.map(
                           ({ condition, icon, text }, index) =>
                             condition && (
-                              <span key={index} className="px-3 py-1 bg-[#1a1a1a] rounded-full text-sm flex items-center gap-x-1 text-gray-300 max-[600px]:px-2 max-[600px]:py-0.5 max-[600px]:text-[11px]">
+                              <span key={index} className="px-3 py-1 bg-[#0d1a1a] border border-[#20c8a0]/15 rounded-full text-sm flex items-center gap-x-1 text-white/70 max-[600px]:px-2 max-[600px]:py-0.5 max-[600px]:text-[11px]">
                                 {icon && <FontAwesomeIcon icon={icon} className="text-[12px] max-[600px]:text-[10px]" />}
                                 {text}
                               </span>
@@ -521,14 +520,14 @@ export default function Watch() {
                       )}
                     </div>
                     {animeInfo?.animeInfo?.Overview && (
-                      <p className="text-[15px] text-gray-400 leading-relaxed max-[600px]:text-[13px] max-[600px]:leading-normal">
+                      <p className="text-[15px] text-white/50 leading-relaxed max-[600px]:text-[13px] max-[600px]:leading-normal">
                         {animeInfo?.animeInfo?.Overview.length > 270 ? (
                           <>
                             {isFullOverview
                               ? animeInfo?.animeInfo?.Overview
                               : `${animeInfo?.animeInfo?.Overview.slice(0, 270)}...`}
                             <button
-                              className="ml-2 text-gray-300 hover:text-white transition-colors max-[600px]:text-[12px] max-[600px]:ml-1"
+                              className="ml-2 text-[#20c8a0]/70 hover:text-[#20c8a0] transition-colors max-[600px]:text-[12px] max-[600px]:ml-1"
                               onClick={() => setIsFullOverview(!isFullOverview)}
                             >
                               {isFullOverview ? "Show Less" : "Read More"}
@@ -545,7 +544,7 @@ export default function Watch() {
 
               {/* Desktop-only Seasons Section */}
               {seasons?.length > 0 && (
-                <div className="bg-[#141414] rounded-lg p-4 max-[1200px]:hidden">
+                <div className="bg-[#0d1a1a] border border-[#20c8a0]/12 rounded-lg p-4 max-[1200px]:hidden">
                   <h2 className="text-xl font-semibold mb-4 text-white">More Seasons</h2>
                   <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
                     {seasons.map((season, index) => (
@@ -553,7 +552,7 @@ export default function Watch() {
                         to={`/${season.id}`}
                         key={index}
                         className={`relative w-full aspect-[3/1] rounded-lg overflow-hidden cursor-pointer group ${animeId === String(season.id)
-                          ? "ring-2 ring-white/40 shadow-lg shadow-white/10"
+                          ? "ring-2 ring-[#20c8a0]/40 shadow-lg shadow-[#20c8a0]/10"
                           : ""
                           }`}
                       >
@@ -597,7 +596,7 @@ export default function Watch() {
             {/* Right Column - Episodes and Related (Desktop Only) */}
             <div className="flex flex-col gap-6 h-full max-[1200px]:hidden">
               {/* Episodes Section */}
-              <div ref={episodesRef} className="episodes flex-shrink-0 bg-[#141414] rounded-lg overflow-hidden">
+              <div ref={episodesRef} className="episodes flex-shrink-0 bg-[#0d1a1a] border border-[#20c8a0]/12 rounded-lg overflow-hidden">
                 {!episodes ? (
                   <div className="h-full flex items-center justify-center">
                     <BouncingLoader />
@@ -614,7 +613,7 @@ export default function Watch() {
 
               {/* Related Anime Section */}
               {animeInfo && animeInfo.related_data ? (
-                <div className="bg-[#141414] rounded-lg p-4">
+                <div className="bg-[#0d1a1a] border border-[#20c8a0]/12 rounded-lg p-4">
                   <h2 className="text-xl font-semibold mb-4 text-white">Related Anime</h2>
                   <Sidecard
                     data={animeInfo.related_data}
@@ -630,7 +629,7 @@ export default function Watch() {
 
             {/* Mobile-only Related Section */}
             {animeInfo && animeInfo.related_data && (
-              <div className="hidden max-[1200px]:block bg-[#141414] rounded-lg p-4">
+              <div className="hidden max-[1200px]:block bg-[#0d1a1a] border border-[#20c8a0]/12 rounded-lg p-4">
                 <h2 className="text-xl font-semibold mb-4 text-white">Related Anime</h2>
                 <Sidecard
                   data={animeInfo.related_data}
