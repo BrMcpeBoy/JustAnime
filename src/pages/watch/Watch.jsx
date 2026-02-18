@@ -190,7 +190,7 @@ export default function Watch() {
   function Tag({ bgColor, index, icon, text }) {
     return (
       <div
-        className="flex space-x-1 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-gray-300 font-medium text-[11px]"
+        className="flex space-x-1 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-2 py-1 text-gray-300 font-medium text-[13px]"
       >
         {icon && <FontAwesomeIcon icon={icon} className="text-[11px] text-gray-300" />}
         <p className="text-[11px] text-gray-300">{text}</p>
@@ -353,7 +353,7 @@ export default function Watch() {
                   )}
 
                   {/* Title and Server Selection */}
-                  <div className="px-3 py-2">
+                  <div className="px-4 py-3">
                     <div>
                       <Servers
                         servers={servers}
@@ -370,7 +370,7 @@ export default function Watch() {
 
                   {/* Next Episode Schedule */}
                   {nextEpisodeSchedule?.nextEpisodeSchedule && showNextEpisodeSchedule && (
-                    <div className="px-3 pb-3">
+                    <div className="px-4 pb-4">
                       <div className="w-full p-3 rounded-lg bg-[#0a0a0a] border border-white/10 flex items-center justify-between">
                         <div className="flex items-center gap-x-3">
                           <span className="text-[18px]">🚀</span>
@@ -508,8 +508,8 @@ export default function Watch() {
                         tags.map(
                           ({ condition, icon, text }, index) =>
                             condition && (
-                              <span key={index} className="flex items-center gap-x-1 bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-[11px] font-medium text-gray-300 max-[600px]:text-[10px]">
-                                {icon && <FontAwesomeIcon icon={icon} className="text-[11px] text-gray-300 max-[600px]:text-[10px]" />}
+                              <span key={index} className="flex items-center gap-x-1 bg-[#111111] border border-white/5 rounded-md px-2 py-1 text-[13px] font-medium text-gray-300 max-[600px]:text-[11px]">
+                                {icon && <FontAwesomeIcon icon={icon} className="text-[13px] text-gray-300 max-[600px]:text-[11px]" />}
                                 {text}
                               </span>
                             )
