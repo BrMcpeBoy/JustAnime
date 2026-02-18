@@ -354,7 +354,7 @@ export default function Watch() {
 
                   {/* Title and Server Selection */}
                   <div className="px-4 py-3">
-                    <div>
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-lg p-4">
                       <Servers
                         servers={servers}
                         activeEpisodeNum={activeEpisodeNum}
@@ -371,7 +371,7 @@ export default function Watch() {
                   {/* Next Episode Schedule */}
                   {nextEpisodeSchedule?.nextEpisodeSchedule && showNextEpisodeSchedule && (
                     <div className="px-4 pb-4">
-                      <div className="w-full p-3 rounded-lg bg-[#0a0a0a] border border-white/10 flex items-center justify-between">
+                      <div className="w-full p-4 rounded-lg bg-[#0a0a0a] border border-white/5 flex items-center justify-between">
                         <div className="flex items-center gap-x-3">
                           <span className="text-[18px]">🚀</span>
                           <div>
