@@ -23,7 +23,7 @@ function Banner({ item, index }) {
       <div className="spotlight-overlay absolute inset-0 z-[1] rounded-2xl"></div>
 
       <div className="absolute flex flex-col left-0 bottom-[40px] w-[55%] p-4 z-[2] max-[1390px]:w-[45%] max-[1390px]:bottom-[40px] max-[1300px]:w-[600px] max-[1120px]:w-[60%] max-md:w-[90%] max-md:bottom-[20px] max-[300px]:w-full">
-        <p className="text-white font-semibold text-[20px] w-fit max-[1300px]:text-[15px]">
+        <p className="text-[#ffbade] font-semibold text-[20px] w-fit max-[1300px]:text-[15px]">
           #{index + 1} Spotlight
         </p>
         <h3 className="text-white line-clamp-2 text-5xl font-bold mt-4 text-left max-[1390px]:text-[45px] max-[1300px]:text-3xl max-[1300px]:mt-3 max-md:text-2xl max-md:mt-1 max-[575px]:text-[22px] max-sm:leading-6 max-sm:w-[80%] max-[320px]:w-full">
@@ -34,7 +34,7 @@ function Banner({ item, index }) {
         <div className="hidden max-md:flex max-md:mt-3 max-md:gap-x-3 max-md:w-full">
           <Link
             to={`/watch/${item.id}`}
-            className="bg-#ffffff hover:bg-#eeeeee text-black font-medium px-5 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-x-2 text-sm"
+            className="bg-white hover:bg-white/90 text-black font-medium px-5 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-x-2 text-sm"
           >
             <FontAwesomeIcon
               icon={faPlay}
@@ -44,7 +44,7 @@ function Banner({ item, index }) {
           </Link>
           <Link
             to={`/${item.id}`}
-            className="bg-white/5 hover:bg-[#1a1a1a] border border-white/10 hover:border-white/10 text-white font-medium px-5 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-x-2 text-sm"
+            className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-medium px-5 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-x-2 text-sm"
           >
             <span>Details</span>
           </Link>
@@ -91,13 +91,13 @@ function Banner({ item, index }) {
 
               <div className="flex space-x-3 w-fit">
                 {item.tvInfo.quality && (
-                  <div className="bg-white/10 border border-white/10 py-[1px] px-[6px] rounded-md w-fit text-[11px] font-bold h-fit text-white">
+                  <div className="bg-white/10 py-[1px] px-[6px] rounded-md w-fit text-[11px] font-bold h-fit text-white">
                     {item.tvInfo.quality}
                   </div>
                 )}
                 <div className="flex space-x-[1px] rounded-r-[5px] rounded-l-[5px] w-fit py-[1px] overflow-hidden">
                   {item.tvInfo.episodeInfo?.sub && (
-                    <div className="flex space-x-1 justify-center items-center bg-white/10 border border-white/10 px-[4px]">
+                    <div className="flex space-x-1 justify-center items-center bg-white/10 px-[4px]">
                       <FontAwesomeIcon
                         icon={faClosedCaptioning}
                         className="text-[12px] text-white"
@@ -109,7 +109,7 @@ function Banner({ item, index }) {
                   )}
 
                   {item.tvInfo.episodeInfo?.dub && (
-                    <div className="flex space-x-1 justify-center items-center bg-white/10 border border-white/10 px-[4px]">
+                    <div className="flex space-x-1 justify-center items-center bg-white/20 px-[4px]">
                       <FontAwesomeIcon
                         icon={faMicrophone}
                         className="text-[12px] text-white"
@@ -132,7 +132,7 @@ function Banner({ item, index }) {
       <div className="absolute bottom-[50px] right-[40px] flex gap-x-5 z-[2] max-md:hidden">
         <Link
           to={`/watch/${item.id}`}
-          className="bg-#ffffff hover:bg-#eeeeee text-black font-medium px-7 py-2 rounded-lg transition-all duration-200 flex items-center gap-x-2.5 shadow-lg shadow-black/10 backdrop-blur-sm hover:translate-y-[-1px]"
+          className="bg-white hover:bg-white/90 text-black font-medium px-7 py-2 rounded-lg transition-all duration-200 flex items-center gap-x-2.5 shadow-lg shadow-black/10 backdrop-blur-sm hover:translate-y-[-1px]"
         >
           <FontAwesomeIcon
             icon={faPlay}
@@ -142,7 +142,7 @@ function Banner({ item, index }) {
         </Link>
         <Link
           to={`/${item.id}`}
-          className="bg-white/5 hover:bg-[#1a1a1a] border border-white/10 hover:border-white/10 text-white font-medium px-7 py-2 rounded-lg transition-all duration-200 flex items-center gap-x-2.5 backdrop-blur-sm hover:translate-y-[-1px]"
+          className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-medium px-7 py-2 rounded-lg transition-all duration-200 flex items-center gap-x-2.5 backdrop-blur-sm hover:translate-y-[-1px]"
         >
           <span>Details</span>
         </Link>
