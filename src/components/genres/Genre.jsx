@@ -72,7 +72,7 @@ function Genre({ data }) {
         <div className="relative z-20 flex items-center">
           <button
             onClick={() => scroll("left")}
-            className="h-8 max-sm:h-7 w-8 max-sm:w-7 flex items-center justify-center border border-white/10 hover:border-white/25 hover:bg-white/5 rounded-[4px] transition-all duration-200 focus:outline-none active:scale-95"
+            className="h-8 max-sm:h-7 w-8 max-sm:w-7 flex items-center justify-center bg-[#0a0a0a] border border-white/10 hover:border-white/25 hover:bg-[#1a1a1a] rounded-[4px] transition-all duration-200 focus:outline-none active:scale-95"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 max-sm:h-3.5 w-4 max-sm:w-3.5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -88,7 +88,7 @@ function Genre({ data }) {
           <div className="h-8 max-sm:h-7 w-20 max-sm:w-12 bg-gradient-to-l from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent pointer-events-none" />
           <button
             onClick={() => scroll("right")}
-            className="h-8 max-sm:h-7 w-8 max-sm:w-7 flex items-center justify-center border border-white/10 hover:border-white/25 hover:bg-white/5 rounded-[4px] transition-all duration-200 focus:outline-none active:scale-95"
+            className="h-8 max-sm:h-7 w-8 max-sm:w-7 flex items-center justify-center bg-[#0a0a0a] border border-white/10 hover:border-white/25 hover:bg-[#1a1a1a] rounded-[4px] transition-all duration-200 focus:outline-none active:scale-95"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 max-sm:h-3.5 w-4 max-sm:w-3.5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
