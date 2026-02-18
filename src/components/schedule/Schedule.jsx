@@ -8,51 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import "./schedule.css";
 import { Link } from "react-router-dom";
-import { useLanguage } from "@/src/context/LanguageContext";
-import { getTranslation } from "@/src/translations/translations";
-import { formatNumber } from "@/src/utils/numberConverter";
-
-// Helper function to get day name translation key
-const getDayNameKey = (dayName) => {
-  const dayMap = {
-    'Sun': 'sunday',
-    'Mon': 'monday',
-    'Tue': 'tuesday',
-    'Wed': 'wednesday',
-    'Thu': 'thursday',
-    'Fri': 'friday',
-    'Sat': 'saturday'
-  };
-  return dayMap[dayName] || dayName;
-};
-
-// Helper function to get month name translation key
-const getMonthNameKey = (monthName) => {
-  const monthMap = {
-    'Jan': 'january',
-    'Feb': 'february',
-    'Mar': 'march',
-    'Apr': 'april',
-    'May': 'may',
-    'Jun': 'june',
-    'Jul': 'july',
-    'Aug': 'august',
-    'Sep': 'september',
-    'Oct': 'october',
-    'Nov': 'november',
-    'Dec': 'december'
-  };
-  return monthMap[monthName] || monthName;
-};
-
-// Helper function to format time with Khmer numbers
-const formatTime = (time, language) => {
-  if (!time) return 'N/A';
-  return formatNumber(time, language);
-};
 
 const Schedule = () => {
-  const { language } = useLanguage();
   const [dates, setDates] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -160,9 +117,9 @@ const Schedule = () => {
       <div className="w-full mt-8 max-[480px]:mt-6">
         <div className="flex items-center justify-between max-[570px]:flex-col max-[570px]:items-start max-[570px]:gap-y-2">
           <div className="font-bold text-2xl text-white max-[478px]:text-[18px]">
-            {getTranslation(language, 'estimatedSchedule')}
+            Estimated Schedule
           </div>
-          <p className="gmt-badge leading-[28px] px-3 bg-zinc-800 text-white rounded-md text-[14px] font-medium max-[478px]:text-[12px] max-[275px]:text-[10px]">
+          <p className="leading-[28px] px-3 bg-zinc-800 text-white rounded-md text-[14px] font-medium max-[478px]:text-[12px] max-[275px]:text-[10px]">
             ({GMTOffset}) {currentTime.toLocaleDateString()}{" "}
             {currentTime.toLocaleTimeString()}
           </p>
@@ -200,7 +157,7 @@ const Schedule = () => {
                     }`}
                   >
                     <div className="text-[16px] font-bold max-[400px]:text-[14px] max-[350px]:text-[12px]">
-                      {getTranslation(language, getDayNameKey(date.dayname))}
+                      {date.dayname}
                     </div>
                     <div
                       className={`text-[13px] max-[400px]:text-[11px] ${
@@ -209,17 +166,17 @@ const Schedule = () => {
                           : "text-zinc-400"
                       } max-[350px]:text-[10px]`}
                     >
-                      {getTranslation(language, getMonthNameKey(date.monthName))} {formatNumber(date.day, language)}
+                      {date.monthName} {date.day}
                     </div>
                   </div>
                 </SwiperSlide>
               ))}
           </Swiper>
-          <button className="next absolute top-1/2 right-[-12px] transform -translate-y-1/2 flex justify-center items-center cursor-pointer bg-[#0a0a0a] text-white p-2.5 rounded-xl hover:bg-[#1a1a1a] border border-white/10 hover:border-white/20 transition-all duration-300 z-20">
-            <FaChevronRight className="text-sm" />
+          <button className="next absolute top-1/2 right-[-12px] transform -translate-y-1/2 flex justify-center items-center cursor-pointer">
+            <FaChevronRight className="text-[12px]" />
           </button>
-          <button className="prev absolute top-1/2 left-[-12px] transform -translate-y-1/2 flex justify-center items-center cursor-pointer bg-[#0a0a0a] text-white p-2.5 rounded-xl hover:bg-[#1a1a1a] border border-white/10 hover:border-white/20 transition-all duration-300 z-20">
-            <FaChevronLeft className="text-sm" />
+          <button className="prev absolute top-1/2 left-[-12px] transform -translate-y-1/2 flex justify-center items-center cursor-pointer">
+            <FaChevronLeft className="text-[12px]" />
           </button>
         </div>
       </div>
@@ -229,11 +186,11 @@ const Schedule = () => {
         </div>
       ) : !scheduleData || scheduleData.length === 0 ? (
         <div className="w-full h-[60px] flex justify-center items-center mt-4 text-lg text-zinc-400">
-          {getTranslation(language, 'noDataToDisplay')}
+          No data to display
         </div>
       ) : error ? (
         <div className="w-full h-[60px] flex justify-center items-center mt-4 text-lg text-zinc-400">
-          {getTranslation(language, 'somethingWentWrong')}
+          Something went wrong
         </div>
       ) : (
         <div className="flex flex-col mt-4 items-start">
@@ -250,19 +207,19 @@ const Schedule = () => {
             >
               <div className="flex items-center max-w-[500px] gap-x-4 max-[400px]:gap-x-2">
                 <div className="text-base font-medium text-zinc-500 group-hover:text-white transition-all duration-200 max-[600px]:text-[14px] max-[275px]:text-[12px]">
-                  {formatTime(item.time, language) || "N/A"}
+                  {item.time || "N/A"}
                 </div>
                 <h3 className="text-[16px] font-medium line-clamp-1 group-hover:text-white transition-all duration-200 max-[600px]:text-[14px] max-[275px]:text-[12px]">
                   {item.title || "N/A"}
                 </h3>
               </div>
-              <div className="episode-badge flex items-center gap-x-2 py-1 px-3 rounded-md bg-zinc-800 group-hover:bg-white transition-all duration-200 min-w-[70px] justify-center">
+              <div className="flex items-center gap-x-2 py-1 px-3 rounded-md bg-zinc-800 group-hover:bg-white transition-all duration-200">
                 <FontAwesomeIcon
                   icon={faPlay}
                   className="mt-[1px] text-[10px] max-[320px]:text-[8px] text-zinc-400 group-hover:text-black"
                 />
-                <p className="text-[13px] text-zinc-400 group-hover:text-black max-[275px]:text-[12px] whitespace-nowrap">
-                  {getTranslation(language, 'ep')} {formatNumber(item.episode_no, language) || "N/A"}
+                <p className="text-[13px] text-zinc-400 group-hover:text-black max-[275px]:text-[12px]">
+                  EP {item.episode_no || "N/A"}
                 </p>
               </div>
             </Link>
@@ -272,7 +229,7 @@ const Schedule = () => {
               onClick={toggleShowAll}
               className="text-zinc-400 py-3 hover:text-white font-medium transition-all duration-200 max-sm:text-[13px]"
             >
-              {showAll ? getTranslation(language, 'showLess') : getTranslation(language, 'showMore')}
+              {showAll ? "Show Less" : "Show More"}
             </button>
           )}
         </div>

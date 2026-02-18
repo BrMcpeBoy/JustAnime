@@ -4,15 +4,12 @@ import {
   faClosedCaptioning,
   faMicrophone,
   faPlay,
-  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { FaChevronRight } from "react-icons/fa";
-import "./CategoryCard.css";
 import { useLanguage } from "@/src/context/LanguageContext";
 import { Link, useNavigate } from "react-router-dom";
-import getAnimeInfo from "@/src/utils/getAnimeInfo.utils";
-import { getTranslation, translateEpisodeInfo, translateDuration } from "@/src/translations/translations";
-import { formatNumber } from "@/src/utils/numberConverter";
+import getSafeTitle from "@/src/utils/getSafetitle";
+import "./CategoryCard.css";
 
 const CategoryCard = React.memo(
   ({
@@ -24,13 +21,10 @@ const CategoryCard = React.memo(
     cardStyle,
     path,
     limit,
-    continueWatching = [], // Accept continue watching data as prop
   }) => {
-    const { language, titleLanguage } = useLanguage();
+    const { language } = useLanguage();
     const navigate = useNavigate();
-    const [malScores, setMalScores] = useState({});
-    const [watchProgress, setWatchProgress] = useState({});
-    
+
     if (limit) {
       data = data.slice(0, limit);
     }
@@ -41,115 +35,44 @@ const CategoryCard = React.memo(
     });
 
     const getItemsToRender = useCallback(() => {
-      // No special first row - all items rendered the same way
+      if (categoryPage) {
+        const firstRow =
+          window.innerWidth > 758 && data.length > 4 ? data.slice(0, 4) : [];
+        const remainingItems =
+          window.innerWidth > 758 && data.length > 4
+            ? data.slice(4)
+            : data.slice(0);
+        return { firstRow, remainingItems };
+      }
       return { firstRow: [], remainingItems: data.slice(0) };
-    }, [data]);
+    }, [categoryPage, data]);
 
     useEffect(() => {
       const handleResize = () => {
         setItemsToRender(getItemsToRender());
       };
-      setItemsToRender(getItemsToRender());
+      const newItems = getItemsToRender();
+      setItemsToRender((prev) => {
+        if (
+          JSON.stringify(prev.firstRow) !== JSON.stringify(newItems.firstRow) ||
+          JSON.stringify(prev.remainingItems) !==
+          JSON.stringify(newItems.remainingItems)
+        ) {
+          return newItems;
+        }
+        return prev;
+      });
+
       window.addEventListener("resize", handleResize);
       return () => {
         window.removeEventListener("resize", handleResize);
       };
     }, [getItemsToRender]);
 
-    // Load continue watching data from localStorage
-    useEffect(() => {
-      const loadWatchProgress = () => {
-        const continueWatchingData = JSON.parse(
-          localStorage.getItem("continueWatching") || "[]"
-        );
-        
-        // Create a map of anime ID to episode info
-        const progressMap = {};
-        continueWatchingData.forEach((item) => {
-          const animeId = String(item.id);
-          // Only keep the first occurrence (latest episode)
-          if (!progressMap[animeId]) {
-            progressMap[animeId] = {
-              episodeId: item.episodeId,
-              episodeNum: item.episodeNum,
-            };
-          }
-        });
-        
-        setWatchProgress(progressMap);
-      };
-
-      loadWatchProgress();
-
-      // Listen for storage changes
-      const handleStorageChange = (e) => {
-        if (e.key === "continueWatching") {
-          loadWatchProgress();
-        }
-      };
-
-      // Listen for custom event from same window
-      const handleLocalStorageChange = () => {
-        loadWatchProgress();
-      };
-
-      window.addEventListener("storage", handleStorageChange);
-      window.addEventListener("continueWatchingUpdated", handleLocalStorageChange);
-
-      return () => {
-        window.removeEventListener("storage", handleStorageChange);
-        window.removeEventListener("continueWatchingUpdated", handleLocalStorageChange);
-      };
-    }, []);
-
-    // Fetch all MAL Scores on mount — parallel, runs only once
-    const malFetched = React.useRef(false);
-    useEffect(() => {
-      if (malFetched.current) return;
-      const allItems = [...itemsToRender.firstRow, ...itemsToRender.remainingItems];
-      if (allItems.length === 0) return;
-      malFetched.current = true;
-
-      const fetchAllMalScores = async () => {
-        const results = await Promise.all(
-          allItems.map(async (item) => {
-            try {
-              const animeData = await getAnimeInfo(item.id);
-              const score = animeData?.data?.animeInfo?.["MAL Score"];
-              return score ? { id: item.id, score } : null;
-            } catch {
-              return null;
-            }
-          })
-        );
-        const scores = {};
-        results.forEach((r) => { if (r) scores[r.id] = r.score; });
-        if (Object.keys(scores).length > 0) setMalScores(scores);
-      };
-
-      fetchAllMalScores();
-    }, [itemsToRender]);
-
-    // Helper function to get the correct watch URL
-    const getWatchUrl = (item) => {
-      if (path === "top-upcoming") {
-        return `/${item.id}`;
-      }
-      
-      // Check if user has watch progress for this anime
-      const progress = watchProgress[String(item.id)];
-      if (progress && progress.episodeId) {
-        return `/watch/${item.id}?ep=${progress.episodeId}`;
-      }
-      
-      // Default to watch page (will start from episode 1)
-      return `/watch/${item.id}`;
-    };
-
     return (
       <div className={`w-full ${className}`}>
-        <div className="flex items-center justify-between mb-5 max-md:mb-4">
-          <h1 className="font-bold text-2xl text-white tracking-tight max-[450px]:text-xl max-[350px]:text-lg">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="font-semibold text-2xl text-white max-[478px]:text-[18px] capitalize tracking-wide">
             {label}
           </h1>
           {showViewMore && (
@@ -159,7 +82,7 @@ const CategoryCard = React.memo(
                 text-[13px] font-medium text-[#ffffff80] hover:text-white
                 transition-all duration-300 group"
             >
-              {getTranslation(language, 'viewAll')}
+              View all
               <FaChevronRight className="text-[10px] transform transition-transform duration-300 
                 group-hover:translate-x-0.5" />
             </Link>
@@ -168,11 +91,10 @@ const CategoryCard = React.memo(
         <>
           {categoryPage && (
             <div
-              className={`grid grid-cols-6 max-[1400px]:grid-cols-4 max-[758px]:grid-cols-3 max-[478px]:grid-cols-2 gap-x-3 gap-y-8 max-[478px]:gap-y-6 transition-all duration-300 ease-in-out max-[478px]:gap-x-2 ${
-                categoryPage && itemsToRender.firstRow.length > 0
-                  ? "mt-8 max-[758px]:hidden"
-                  : ""
-              }`}
+              className={`grid grid-cols-4 gap-x-3 gap-y-8 transition-all duration-300 ease-in-out ${categoryPage && itemsToRender.firstRow.length > 0
+                ? "mt-8 max-[758px]:hidden"
+                : ""
+                }`}
             >
               {itemsToRender.firstRow.map((item, index) => (
                 <div
@@ -183,15 +105,21 @@ const CategoryCard = React.memo(
                   <div className="w-full h-auto pb-[140%] relative inline-block overflow-hidden rounded-lg shadow-lg group">
                     <div
                       className="inline-block bg-gray-900 absolute left-0 top-0 w-full h-full group hover:cursor-pointer"
-                      onClick={() => navigate(getWatchUrl(item))}
+                      onClick={() =>
+                        navigate(
+                          `${path === "top-upcoming"
+                            ? `/${item.id}`
+                            : `/watch/${item.id}`
+                          }`
+                        )
+                      }
                     >
                       <img
                         src={`${item.poster}`}
-                        alt={item.title}
-                        loading="lazy"
-                        className="block w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                        alt={getSafeTitle(item.title, language, item.japanese_title)}
+                        className="block w-full h-full object-cover transition-all duration-500 ease-in-out group-hover:scale-105 group-hover:blur-sm"
                       />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                         <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                           <FontAwesomeIcon
                             icon={faPlay}
@@ -202,57 +130,57 @@ const CategoryCard = React.memo(
                     </div>
                     {(item.tvInfo?.rating === "18+" ||
                       item?.adultContent === true) && (
-                      <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-red-600/90 flex items-center justify-center">
-                        <span className="text-white text-[11px] font-semibold">18+</span>
-                      </div>
-                    )}
-                    {malScores[item.id] && (
-                      <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-black/70 flex items-center gap-1">
-                        <FontAwesomeIcon icon={faStar} className="text-[#ffc107] text-[10px]" />
-                        <span className="text-white text-[11px] font-semibold">
-                          {formatNumber(malScores[item.id], language)}
-                        </span>
-                      </div>
-                    )}
-                    <div className="absolute bottom-0 left-0 right-0 p-3 pb-3 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
-                      <div className="flex flex-wrap items-center gap-0.5 z-[100]">
+                        <div className="text-white px-2 py-0.5 rounded-lg bg-red-600 absolute top-3 left-3 flex items-center justify-center text-[12px] font-bold">
+                          18+
+                        </div>
+                      )}
+                    <div className="absolute bottom-0 left-0 right-0 p-3 pb-2 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                      <div className="flex items-center justify-start w-full space-x-1.5 z-[100] flex-wrap gap-y-1.5">
                         {item.tvInfo?.sub && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <FontAwesomeIcon icon={faClosedCaptioning} className="badge-icon text-[12px]" />
-                            <span>{translateEpisodeInfo(item.tvInfo.sub, language)}</span>
+                          <div className="flex space-x-0.5 justify-center items-center bg-[#2a2a2a] rounded-[2px] px-2 text-white py-1">
+                            <FontAwesomeIcon
+                              icon={faClosedCaptioning}
+                              className="text-[11px]"
+                            />
+                            <p className="text-[11px] font-medium">
+                              {item.tvInfo.sub}
+                            </p>
                           </div>
                         )}
                         {item.tvInfo?.dub && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <FontAwesomeIcon icon={faMicrophone} className="badge-icon text-[12px]" />
-                            <span>{translateEpisodeInfo(item.tvInfo.dub, language)}</span>
+                          <div className="flex space-x-0.5 justify-center items-center bg-[#2a2a2a] rounded-[2px] px-2 text-white py-1">
+                            <FontAwesomeIcon
+                              icon={faMicrophone}
+                              className="text-[11px]"
+                            />
+                            <p className="text-[11px] font-medium">
+                              {item.tvInfo.dub}
+                            </p>
                           </div>
                         )}
                         {item.tvInfo?.showType && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <span>{item.tvInfo.showType.split(" ").shift()}</span>
+                          <div className="bg-[#2a2a2a] text-white rounded-[2px] px-2 py-1 text-[11px] font-medium">
+                            {item.tvInfo.showType.split(" ").shift()}
                           </div>
                         )}
                         {item.releaseDate && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <span>{item.releaseDate}</span>
+                          <div className="bg-[#2a2a2a] text-white rounded-[2px] px-2 py-1 text-[11px] font-medium">
+                            {item.releaseDate}
                           </div>
                         )}
                         {!item.tvInfo?.showType && item.type && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <span>{item.type}</span>
+                          <div className="bg-[#2a2a2a] text-white rounded-[2px] px-2 py-1 text-[11px] font-medium">
+                            {item.type}
                           </div>
                         )}
                         {(item.tvInfo?.duration || item.duration) && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <span>
-                              {item.tvInfo?.duration === "m" ||
+                          <div className="bg-[#2a2a2a] text-white rounded-[2px] px-2 py-1 text-[11px] font-medium">
+                            {item.tvInfo?.duration === "m" ||
                               item.tvInfo?.duration === "?" ||
                               item.duration === "m" ||
                               item.duration === "?"
-                                ? "N/A"
-                                : translateDuration(item.tvInfo?.duration || item.duration || "N/A", language)}
-                            </span>
+                              ? "N/A"
+                              : item.tvInfo?.duration || item.duration || "N/A"}
                           </div>
                         )}
                       </div>
@@ -260,15 +188,20 @@ const CategoryCard = React.memo(
                   </div>
                   <Link
                     to={`/${item.id}`}
-                    className="text-white font-semibold mt-3 max-[478px]:mt-2 item-title hover:text-white hover:cursor-pointer line-clamp-1"
+                    className="text-white font-semibold mt-3 item-title hover:text-white hover:cursor-pointer line-clamp-1"
                   >
-                    {titleLanguage === "en" ? item.title : item.japanese_title}
+                    {getSafeTitle(item.title, language, item.japanese_title)}
                   </Link>
+                  {item.description && (
+                    <div className="line-clamp-3 text-[13px] font-light text-gray-400 mt-3 max-[1200px]:hidden">
+                      {item.description}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           )}
-          <div className={`grid ${cardStyle || 'grid-cols-6 max-[1400px]:grid-cols-4 max-[758px]:grid-cols-3 max-[478px]:grid-cols-2'} gap-x-3 gap-y-8 max-[478px]:gap-y-6 transition-all duration-300 ease-in-out max-[478px]:gap-x-2`}>
+          <div className={`grid ${cardStyle || 'grid-cols-6 max-[1400px]:grid-cols-4 max-[758px]:grid-cols-3 max-[478px]:grid-cols-3'} gap-x-3 gap-y-8 mt-6 transition-all duration-300 ease-in-out max-[478px]:gap-x-2`}>
             {itemsToRender.remainingItems.map((item, index) => (
               <div
                 key={index}
@@ -278,15 +211,21 @@ const CategoryCard = React.memo(
                 <div className="w-full h-auto pb-[140%] relative inline-block overflow-hidden rounded-lg shadow-lg group">
                   <div
                     className="inline-block bg-gray-900 absolute left-0 top-0 w-full h-full group hover:cursor-pointer"
-                    onClick={() => navigate(getWatchUrl(item))}
+                    onClick={() =>
+                      navigate(
+                        `${path === "top-upcoming"
+                          ? `/${item.id}`
+                          : `/watch/${item.id}`
+                        }`
+                      )
+                    }
                   >
                     <img
                       src={`${item.poster}`}
-                      alt={item.title}
-                      loading="lazy"
-                      className="block w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                      alt={getSafeTitle(item.title, language, item.japanese_title)}
+                      className="block w-full h-full object-cover transition-all duration-500 ease-in-out group-hover:scale-105 group-hover:blur-sm"
                     />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                       <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         <FontAwesomeIcon
                           icon={faPlay}
@@ -297,67 +236,67 @@ const CategoryCard = React.memo(
                   </div>
                   {(item.tvInfo?.rating === "18+" ||
                     item?.adultContent === true) && (
-                    <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-red-600/90 flex items-center justify-center">
-                      <span className="text-white text-[11px] font-semibold">18+</span>
-                    </div>
-                  )}
-                  {malScores[item.id] && (
-                    <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-black/70 flex items-center gap-1">
-                      <FontAwesomeIcon icon={faStar} className="text-[#ffc107] text-[10px]" />
-                      <span className="text-white text-[11px] font-semibold">
-                        {formatNumber(malScores[item.id], language)}
-                      </span>
-                    </div>
-                  )}
-                    <div className="absolute bottom-0 left-0 right-0 p-3 pb-3 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
-                      <div className="flex flex-wrap items-center gap-0.5 z-[100]">
-                        {item.tvInfo?.sub && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <FontAwesomeIcon icon={faClosedCaptioning} className="badge-icon text-[12px]" />
-                            <span>{translateEpisodeInfo(item.tvInfo.sub, language)}</span>
-                          </div>
-                        )}
-                        {item.tvInfo?.dub && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <FontAwesomeIcon icon={faMicrophone} className="badge-icon text-[12px]" />
-                            <span>{translateEpisodeInfo(item.tvInfo.dub, language)}</span>
-                          </div>
-                        )}
-                        {item.tvInfo?.showType && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-1 !items-center" style={{minWidth:'unset'}}>
-                            <span>{item.tvInfo.showType.split(" ").shift()}</span>
-                          </div>
-                        )}
-                        {item.releaseDate && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <span>{item.releaseDate}</span>
-                          </div>
-                        )}
-                        {!item.tvInfo?.showType && item.type && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-0.5 !items-center" style={{minWidth:'unset'}}>
-                            <span>{item.type}</span>
-                          </div>
-                        )}
-                        {(item.tvInfo?.duration || item.duration) && (
-                          <div className="badge-item px-1.5 py-0.5 text-[11px] min-w-0 h-5 leading-4 gap-x-1 !items-center" style={{minWidth:'unset'}}>
-                            <span>
-                              {item.tvInfo?.duration === "m" ||
-                              item.tvInfo?.duration === "?" ||
-                              item.duration === "m" ||
-                              item.duration === "?"
-                                ? "N/A"
-                                : translateDuration(item.tvInfo?.duration || item.duration || "N/A", language)}
-                            </span>
-                          </div>
-                        )}
+                      <div className="text-white px-2 py-0.5 rounded-lg bg-red-600 absolute top-3 left-3 flex items-center justify-center text-[12px] font-bold">
+                        18+
                       </div>
+                    )}
+                  <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                    <div className="flex items-center justify-start w-full space-x-1 max-[478px]:space-x-0.5 z-[100] flex-wrap gap-y-1">
+                      {item.tvInfo?.sub && (
+                        <div className="flex space-x-0.5 justify-center items-center bg-[#2a2a2a] rounded-[2px] px-1.5 text-white py-0.5 max-[478px]:py-0.5 max-[478px]:px-1">
+                          <FontAwesomeIcon
+                            icon={faClosedCaptioning}
+                            className="text-[10px]"
+                          />
+                          <p className="text-[10px] font-medium">
+                            {item.tvInfo.sub}
+                          </p>
+                        </div>
+                      )}
+                      {item.tvInfo?.dub && (
+                        <div className="flex space-x-0.5 justify-center items-center bg-[#2a2a2a] rounded-[2px] px-1.5 text-white py-0.5 max-[478px]:py-0.5 max-[478px]:px-1">
+                          <FontAwesomeIcon
+                            icon={faMicrophone}
+                            className="text-[10px]"
+                          />
+                          <p className="text-[10px] font-medium">
+                            {item.tvInfo.dub}
+                          </p>
+                        </div>
+                      )}
+                      {item.tvInfo?.showType && (
+                        <div className="bg-[#2a2a2a] text-white rounded-[2px] px-1.5 py-0.5 text-[10px] font-medium max-[478px]:py-0.5 max-[478px]:px-1 max-[478px]:hidden">
+                          {item.tvInfo.showType.split(" ").shift()}
+                        </div>
+                      )}
+                      {item.releaseDate && (
+                        <div className="bg-[#2a2a2a] text-white rounded-[2px] px-1.5 py-0.5 text-[10px] font-medium max-[478px]:py-0.5 max-[478px]:px-1">
+                          {item.releaseDate}
+                        </div>
+                      )}
+                      {!item.tvInfo?.showType && item.type && (
+                        <div className="bg-[#2a2a2a] text-white rounded-[2px] px-1.5 py-0.5 text-[10px] font-medium max-[478px]:py-0.5 max-[478px]:px-1">
+                          {item.type}
+                        </div>
+                      )}
+                      {(item.tvInfo?.duration || item.duration) && (
+                        <div className="bg-[#2a2a2a] text-white rounded-[2px] px-1.5 py-0.5 text-[10px] font-medium max-[478px]:py-0.5 max-[478px]:px-1 max-[478px]:hidden">
+                          {item.tvInfo?.duration === "m" ||
+                            item.tvInfo?.duration === "?" ||
+                            item.duration === "m" ||
+                            item.duration === "?"
+                            ? "N/A"
+                            : item.tvInfo?.duration || item.duration || "N/A"}
+                        </div>
+                      )}
                     </div>
+                  </div>
                 </div>
                 <Link
                   to={`/${item.id}`}
-                  className="text-white font-semibold mt-3 max-[478px]:mt-2 item-title hover:text-white hover:cursor-pointer line-clamp-1"
+                  className="text-white font-semibold mt-3 item-title hover:text-white hover:cursor-pointer line-clamp-1"
                 >
-                  {titleLanguage === "en" ? item.title : item.japanese_title}
+                  {getSafeTitle(item.title, language, item.japanese_title)}
                 </Link>
               </div>
             ))}

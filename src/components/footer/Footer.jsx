@@ -1,22 +1,39 @@
 import logoTitle from "@/src/config/logoTitle.js";
 import website_name from "@/src/config/website.js";
 import { Link } from "react-router-dom";
-import { useLanguage } from "@/src/context/LanguageContext";
-import { getTranslation } from "@/src/translations/translations";
+import { FaDiscord, FaTelegram } from "react-icons/fa";
 
 function Footer() {
-  const { language } = useLanguage();
-  
   return (
     <footer className="w-full mt-16">
       {/* Logo Section */}
       <div className="max-w-[1920px] mx-auto px-4">
-        <div className="flex justify-center sm:justify-start items-center gap-6">
-          <img
-            src="/footer.png"
-            alt={logoTitle}
-            className="h-[100px] w-[200px] object-contain"
-          />
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-6">
+            <img
+              src="/footer.png"
+              alt={logoTitle}
+              className="h-[100px] w-[200px] object-contain"
+            />
+            <div className="flex items-center gap-4 border-l border-white/10 pl-6 h-10">
+              <a
+                href="https://discord.gg/P3yqksmGun"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-[#5865F2] transition-all hover:scale-110"
+              >
+                <FaDiscord size={28} />
+              </a>
+              <a
+                href="https://tinyurl.com/JustAnimeZone"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-[#26A5E4] transition-all hover:scale-110"
+              >
+                <FaTelegram size={28} />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -25,15 +42,15 @@ function Footer() {
           {/* A-Z List Section */}
           <div className="mb-6 text-center sm:text-left">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4 items-center sm:items-start">
-              <h2 className="text-sm font-medium text-white">{getTranslation(language, 'azList')}</h2>
-              <span className="text-sm text-white/60">{getTranslation(language, 'browseAlphabetically')}</span>
+              <h2 className="text-sm font-medium text-white">A-Z LIST</h2>
+              <span className="text-sm text-white/60">Browse anime alphabetically</span>
             </div>
             <div className="flex flex-wrap gap-1.5 justify-center sm:justify-start">
               {["All", "#", "0-9", ...Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i))].map((item, index) => (
                 <Link
                   to={`az-list/${item === "All" ? "" : item}`}
                   key={index}
-                  className="px-2.5 py-1 text-sm bg-[#0a0a0a] border border-white/10 hover:border-white/20 hover:bg-[#1a1a1a] text-white/60 hover:text-white rounded-md transition-all duration-300"
+                  className="px-2.5 py-1 text-sm bg-white/5 hover:bg-white/10 text-white/60 hover:text-white rounded transition-colors"
                 >
                   {item}
                 </Link>
@@ -44,25 +61,19 @@ function Footer() {
                 to="/terms-of-service"
                 className="text-sm text-white/60 hover:text-white transition-colors"
               >
-                {getTranslation(language, 'termsOfService')}
+                Terms of Service
               </Link>
               <Link
                 to="/dmca"
                 className="text-sm text-white/60 hover:text-white transition-colors"
               >
-                {getTranslation(language, 'dmca')}
+                DMCA
               </Link>
               <Link
                 to="/contact"
                 className="text-sm text-white/60 hover:text-white transition-colors"
               >
-                {getTranslation(language, 'contact')}
-              </Link>
-              <Link
-                to="/admin-manage"
-                className="text-sm text-white/30 hover:text-indigo-400 transition-colors"
-              >
-                Admin Manage
+                Contact
               </Link>
             </div>
           </div>
@@ -70,9 +81,12 @@ function Footer() {
           {/* Legal Text */}
           <div className="space-y-2 text-sm text-white/40 text-center sm:text-left">
             <p className="max-w-4xl mx-auto sm:mx-0">
-              {website_name} {getTranslation(language, 'disclaimer')} {website_name} {getTranslation(language, 'notResponsible')}
+              {website_name} does not host any files, it merely pulls streams from
+              3rd party services. Legal issues should be taken up with the file
+              hosts and providers. {website_name} is not responsible for any media
+              files shown by the video providers.
             </p>
-            <p>© {website_name}. {getTranslation(language, 'allRightsReserved')}</p>
+            <p>© {website_name}. All rights reserved.</p>
           </div>
         </div>
       </div>

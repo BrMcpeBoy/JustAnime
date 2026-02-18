@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import BouncingLoader from "../ui/bouncingloader/Bouncingloader";
-import { useAuth } from "@/src/context/AuthContext";
 
 export default function IframePlayer({
   episodeId,
@@ -13,7 +12,6 @@ export default function IframePlayer({
   playNext,
   autoNext,
 }) {
-  const { user, isAuthenticated } = useAuth ? useAuth() : { user: null, isAuthenticated: false };
   const baseURL =
     serverName.toLowerCase() === "hd-1"
       ? import.meta.env.VITE_BASE_IFRAME_URL
@@ -56,32 +54,13 @@ export default function IframePlayer({
     const handleMessage = (event) => {
       const { currentTime, duration } = event.data;
       if (typeof currentTime === "number" && typeof duration === "number") {
-        // Handle auto-next
         if (
           currentTime >= duration &&
           currentEpisodeIndex < episodes?.length - 1 &&
           autoNext
         ) {
-          // ✅ FIX: Get current episode number and find next by number, not array index
-          const currentEpisode = episodes[currentEpisodeIndex];
-          const currentEpisodeNum = parseInt(currentEpisode?.episode_no || 0);
-          const nextEpisodeNum = currentEpisodeNum + 1;
-          
-          const nextEpisode = episodes.find(
-            (ep) => parseInt(ep?.episode_no || 0) === nextEpisodeNum
-          );
-          
-          const nextEpisodeId = nextEpisode?.id.match(/ep=(\d+)/)?.[1];
-          
-          if (nextEpisodeId) {
-            console.log(`🎬 IframePlayer auto-next: Ep ${currentEpisodeNum} → Ep ${nextEpisodeNum}`);
-            playNext(nextEpisodeId);
-          } else {
-            console.warn(`⚠️ Could not find episode ${nextEpisodeNum} in episodes list`);
-          }
+          playNext(episodes[currentEpisodeIndex + 1].id.match(/ep=(\d+)/)?.[1]);
         }
-        
-        // AniList progress sync is now handled from ContinueWatching component
       }
     };
     window.addEventListener("message", handleMessage);
@@ -110,9 +89,7 @@ export default function IframePlayer({
         (item) => item.data_id === newEntry.data_id
       );
       if (existingIndex !== -1) {
-        // Move existing entry to the end so it's treated as most-recent
-        continueWatching.splice(existingIndex, 1);
-        continueWatching.push(newEntry);
+        continueWatching[existingIndex] = newEntry;
       } else {
         continueWatching.push(newEntry);
       }

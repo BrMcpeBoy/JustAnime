@@ -1,5 +1,5 @@
 import BouncingLoader from "../ui/bouncingloader/Bouncingloader";
-import getAnimeInfo from "@/src/utils/getAnimeInfo.utils";
+import getQtip from "@/src/utils/getQtip.utils";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,47 +9,21 @@ import {
   faMicrophone,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import getSafeTitle from "@/src/utils/getSafetitle";
 import { useLanguage } from "@/src/context/LanguageContext";
 
-// Tag component - exact copy from AnimeInfo.jsx with colored star icon
-function Tag({ icon, text }) {
-  const isStarIcon = icon === faStar;
-  
-  return (
-    <div className="flex space-x-1 justify-center items-center bg-[#0a0a0a] rounded-md border border-white/10 hover:border-white/20 px-1.5 py-0.5 transition-colors duration-200">
-      {icon && (
-        <FontAwesomeIcon 
-          icon={icon} 
-          className={`text-[11px] ${isStarIcon ? 'text-[#ffc107]' : 'text-gray-300'}`}
-        />
-      )}
-      <p className="text-[11px] font-medium text-gray-300">{text}</p>
-    </div>
-  );
-}
-
-function Qtip({ id, animeData = null }) {
+function Qtip({ id }) {
   const { language } = useLanguage();
-  const [animeInfo, setAnimeInfo] = useState(null);
+  const [qtip, setQtip] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [watchProgress, setWatchProgress] = useState({});
 
   useEffect(() => {
     const fetchQtipInfo = async () => {
       setLoading(true);
       try {
-        console.log('Fetching full anime info for ID:', id);
-        
-        // Use getAnimeInfo to get full data just like AnimeInfo.jsx does
-        const data = await getAnimeInfo(id);
-        console.log('Full anime data received:', data);
-        
-        if (data?.data) {
-          setAnimeInfo(data.data);
-        } else {
-          setError(new Error('No data available'));
-        }
+        const data = await getQtip(id);
+        setQtip(data);
       } catch (err) {
         console.error("Error fetching anime info:", err);
         setError(err);
@@ -60,199 +34,127 @@ function Qtip({ id, animeData = null }) {
     fetchQtipInfo();
   }, [id]);
 
-  // Load continue watching data from localStorage
-  useEffect(() => {
-    const loadWatchProgress = () => {
-      const continueWatchingData = JSON.parse(
-        localStorage.getItem("continueWatching") || "[]"
-      );
-      
-      const progressMap = {};
-      continueWatchingData.forEach((item) => {
-        const animeId = String(item.id);
-        if (!progressMap[animeId]) {
-          progressMap[animeId] = {
-            episodeId: item.episodeId,
-            episodeNum: item.episodeNum,
-          };
-        }
-      });
-      
-      setWatchProgress(progressMap);
-    };
-
-    loadWatchProgress();
-
-    const handleStorageChange = (e) => {
-      if (e.key === "continueWatching") {
-        loadWatchProgress();
-      }
-    };
-
-    const handleLocalStorageChange = () => {
-      loadWatchProgress();
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    window.addEventListener("continueWatchingUpdated", handleLocalStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener("continueWatchingUpdated", handleLocalStorageChange);
-    };
-  }, []);
-
-  console.log('Qtip render state:', { loading, error: !!error, hasAnimeInfo: !!animeInfo });
-
-  // Helper function to get the correct watch URL
-  const getWatchUrl = (animeId) => {
-    const progress = watchProgress[String(animeId)];
-    if (progress && progress.episodeId) {
-      return `/watch/${animeId}?ep=${progress.episodeId}`;
-    }
-    return `/watch/${animeId}`;
-  };
-
-  // Show loading state
-  if (loading) {
-    return (
-      <div className="w-[280px] h-[100px] rounded-lg overflow-hidden bg-[#0a0a0a] border border-white/10 shadow-2xl z-50 flex items-center justify-center">
-        <BouncingLoader />
-      </div>
-    );
-  }
-
-  // Don't render if there's an error or no data
-  if (error || !animeInfo) {
-    console.log('Qtip not showing because:', { error: error?.message, hasAnimeInfo: !!animeInfo });
-    return (
-      <div className="w-[280px] h-fit rounded-lg overflow-hidden bg-[#0a0a0a] border border-red-500 shadow-2xl z-50 p-3">
-        <p className="text-xs text-red-500">Error loading anime info</p>
-        <p className="text-[9px] text-white/50 mt-1">{error?.message || 'No data'}</p>
-      </div>
-    );
-  }
-
-  console.log('Qtip data to display:', animeInfo);
-
-  // Extract data - same as AnimeInfo.jsx
-  const { title, japanese_title, animeInfo: info } = animeInfo;
-  
-  console.log('Extracted info object:', info);
-  console.log('MAL Score value:', info?.["MAL Score"]);
-  console.log('All info keys:', Object.keys(info || {}));
-  
-  // Define tags - adding MAL Score as first badge with star icon
-  const tags = [
-    {
-      condition: info?.["MAL Score"],
-      icon: faStar,
-      text: info?.["MAL Score"],
-    },
-    {
-      condition: info?.tvInfo?.rating,
-      text: info?.tvInfo?.rating,
-    },
-    {
-      condition: info?.tvInfo?.quality,
-      text: info?.tvInfo?.quality,
-    },
-    {
-      condition: info?.tvInfo?.sub,
-      icon: faClosedCaptioning,
-      text: info?.tvInfo?.sub,
-    },
-    {
-      condition: info?.tvInfo?.dub,
-      icon: faMicrophone,
-      text: info?.tvInfo?.dub,
-    },
-  ];
-
   return (
-    <div className="w-[300px] h-fit rounded-lg overflow-hidden bg-[#0a0a0a] border border-white/10 shadow-2xl z-50">
-      {/* Title Section - Bigger and Cleaner */}
-      <div className="px-4 pt-3 pb-3 bg-[#0a0a0a] border-b border-white/10">
-        <h1 className="text-sm font-bold text-white leading-5 line-clamp-2">
-          {language?.toLowerCase() === "en" ? title : (japanese_title || title)}
-        </h1>
-      </div>
-
-      {/* Info Tags - Same as AnimeInfo.jsx */}
-      <div className="px-3 py-2 flex flex-wrap gap-2">
-        {tags.map(({ condition, icon, text }, index) =>
-          condition && (
-            <Tag
-              key={index}
-              icon={icon}
-              text={text}
-            />
-          )
-        )}
-      </div>
-
-      {/* Description */}
-      {info?.Overview && (
-        <div className="px-3 py-2 border-t border-white/10">
-          <p className="text-white/70 text-[10px] leading-3 line-clamp-3">
-            {info.Overview}
-          </p>
+    <div className="w-[320px] h-fit rounded-xl p-4 flex justify-center items-center bg-[#3e3c50] bg-opacity-70 backdrop-blur-[10px] z-50">
+      {loading || error || !qtip ? (
+        <BouncingLoader />
+      ) : (
+        <div className="w-full flex flex-col justify-start gap-y-2">
+          <h1 className="text-xl font-semibold text-white text-[13px] leading-6">
+            {getSafeTitle(qtip.title, language, qtip.japaneseTitle)}
+          </h1>
+          <div className="w-full flex items-center relative mt-2">
+            {qtip?.rating && (
+              <div className="flex gap-x-2 items-center">
+                <FontAwesomeIcon icon={faStar} className="text-[#ffc107]" />
+                <p className="text-[#b7b7b8]">{qtip.rating}</p>
+              </div>
+            )}
+            <div className="flex ml-4 gap-x-[1px] overflow-hidden rounded-md items-center h-fit">
+              {qtip?.quality && (
+                <div className="bg-[#ffbade] px-[7px] w-fit flex justify-center items-center py-[1px] text-black">
+                  <p className="text-[12px] font-semibold">{qtip.quality}</p>
+                </div>
+              )}
+              <div className="flex gap-x-[1px] w-fit items-center py-[1px]">
+                {qtip?.subCount && (
+                  <div className="flex gap-x-1 justify-center items-center bg-[#B0E3AF] px-[7px] text-black">
+                    <FontAwesomeIcon
+                      icon={faClosedCaptioning}
+                      className="text-[13px]"
+                    />
+                    <p className="text-[13px] font-semibold">{qtip.subCount}</p>
+                  </div>
+                )}
+                {qtip?.dubCount && (
+                  <div className="flex gap-x-1 justify-center items-center bg-[#B9E7FF] px-[7px] text-black">
+                    <FontAwesomeIcon
+                      icon={faMicrophone}
+                      className="text-[13px]"
+                    />
+                    <p className="text-[13px] font-semibold">{qtip.dubCount}</p>
+                  </div>
+                )}
+                {qtip?.episodeCount && (
+                  <div className="flex gap-x-1 justify-center items-center bg-[#a199a3] px-[7px] text-black">
+                    <p className="text-[13px] font-semibold">
+                      {qtip.episodeCount}
+                    </p>
+                  </div>
+                )}
+              </div>
+              {qtip?.type && (
+                <div className="absolute right-0 top-0 justify-center items-center rounded-sm bg-[#ffbade] px-[6px] text-black">
+                  <p className="font-semibold text-[13px]">{qtip.type}</p>
+                </div>
+              )}
+            </div>
+          </div>
+          {qtip?.description && (
+            <p className="text-[#d7d7d8] text-[13px] leading-4 font-light line-clamp-3 mt-1">
+              {qtip.description}
+            </p>
+          )}
+          <div className="flex flex-col mt-1">
+            {qtip?.japaneseTitle && (
+              <div className="leading-4">
+                <span className="text-[#b7b7b8] text-[13px]">
+                  Japanese:&nbsp;
+                </span>
+                <span className="text-[13px]">{qtip.japaneseTitle}</span>
+              </div>
+            )}
+            {qtip?.Synonyms && (
+              <div className="leading-4">
+                <span className="text-[#b7b7b8] text-[13px]">
+                  Synonyms:&nbsp;
+                </span>
+                <span className="text-[13px]">{qtip.Synonyms}</span>
+              </div>
+            )}
+            {qtip?.airedDate && (
+              <div className="leading-4">
+                <span className="text-[#b7b7b8] text-[13px]">Aired:&nbsp;</span>
+                <span className="text-[13px]">{qtip.airedDate}</span>
+              </div>
+            )}
+            {qtip?.status && (
+              <div className="leading-4">
+                <span className="text-[#b7b7b8] text-[13px]">
+                  Status:&nbsp;
+                </span>
+                <span className="text-[13px]">{qtip.status}</span>
+              </div>
+            )}
+            {qtip?.genres && (
+              <div className="leading-4 flex flex-wrap text-wrap">
+                <span className="text-[#b7b7b8] text-[13px]">
+                  Genres:&nbsp;
+                </span>
+                {qtip.genres.map((genre, index) => (
+                  <Link
+                    to={`/genre/${genre}`}
+                    key={index}
+                    className="text-[13px] hover:text-[#ffbade]"
+                  >
+                    <span>
+                      {genre}
+                      {index === qtip.genres.length - 1 ? "" : ","}&nbsp;
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+          <Link
+            to={qtip.watchLink}
+            className="w-[80%] flex mt-4 justify-center items-center gap-x-2 bg-[#ffbade] py-[9px] rounded-3xl"
+          >
+            <FontAwesomeIcon icon={faPlay} className="text-[14px] text-black" />
+            <p className="text-[14px] font-semibold text-black">Watch Now</p>
+          </Link>
         </div>
       )}
-
-      {/* Details Section */}
-      <div className="px-3 py-2 border-t border-white/10 space-y-1">
-        {info?.Synonyms && (
-          <div className="text-[10px]">
-            <span className="text-white/50">Synonyms: </span>
-            <span className="text-white/90">{info.Synonyms}</span>
-          </div>
-        )}
-        {info?.Aired && (
-          <div className="text-[10px]">
-            <span className="text-white/50">Aired: </span>
-            <span className="text-white/90">{info.Aired}</span>
-          </div>
-        )}
-        {info?.Premiered && (
-          <div className="text-[10px]">
-            <span className="text-white/50">Premiered: </span>
-            <span className="text-white/90">{info.Premiered}</span>
-          </div>
-        )}
-        {info?.Duration && (
-          <div className="text-[10px]">
-            <span className="text-white/50">Duration: </span>
-            <span className="text-white/90">{info.Duration}</span>
-          </div>
-        )}
-        {info?.Status && (
-          <div className="text-[10px]">
-            <span className="text-white/50">Status: </span>
-            <span className="text-white/90">{info.Status}</span>
-          </div>
-        )}
-        {info?.Genres && info.Genres.length > 0 && (
-          <div className="text-[10px]">
-            <span className="text-white/50">Genres: </span>
-            <span className="text-white/90">
-              {info.Genres.slice(0, 3).join(", ")}
-              {info.Genres.length > 3 && "..."}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* Watch Now Button */}
-      <div className="px-3 py-2 border-t border-white/10">
-        <Link
-          to={getWatchUrl(animeInfo.id)}
-          className="w-full flex justify-center items-center gap-x-2 bg-[#0a0a0a] border border-white/10 hover:border-white/20 hover:bg-[#1a1a1a] py-2 rounded-lg transition-colors"
-        >
-          <FontAwesomeIcon icon={faPlay} className="text-xs text-white" />
-          <p className="text-xs font-medium text-white">Watch Now</p>
-        </Link>
-      </div>
     </div>
   );
 }

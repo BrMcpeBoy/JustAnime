@@ -1,4 +1,4 @@
-export default function autoSkip(option, isEnabledFn = () => true) {
+export default function autoSkip(option) {
   function validateRanges(ranges) {
     if (!Array.isArray(ranges)) {
       throw new TypeError("Option must be an array of time ranges");
@@ -50,9 +50,6 @@ export default function autoSkip(option, isEnabledFn = () => true) {
     }
 
     function checkAndSkip() {
-      // Only skip if the isEnabledFn returns true
-      if (!isEnabledFn()) return;
-      
       const currentTime = art.currentTime;
       for (const [start, end] of skipRanges) {
         if (currentTime >= start && currentTime < end) {

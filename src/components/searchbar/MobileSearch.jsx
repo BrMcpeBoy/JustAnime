@@ -1,13 +1,10 @@
 import Suggestion from '../suggestion/Suggestion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useLanguage } from "@/src/context/LanguageContext";
-import { getTranslation } from "@/src/translations/translations";
 import { faMagnifyingGlass, faRandom } from '@fortawesome/free-solid-svg-icons';
 import useSearch from '@/src/hooks/useSearch';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 function MobileSearch({ onClose }) {
-    const { language } = useLanguage();
     const navigate = useNavigate();
     const location = useLocation();
     const {
@@ -41,8 +38,8 @@ function MobileSearch({ onClose }) {
                 <div className="relative flex-1">
                     <input
                         type="text"
-                        className="w-full px-5 py-2 bg-[#000000]/75 text-white rounded-lg border border-white/10 hover:border-white/20 transition-colors placeholder-white/50"
-                        placeholder={getTranslation(language, "searchAnime")}
+                        className="w-full px-5 py-2 bg-[#2a2a2a]/75 text-white rounded-lg focus:outline-none transition-colors placeholder-white/50"
+                        placeholder="Search anime..."
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
                         onFocus={() => setIsFocused(true)}
@@ -75,7 +72,7 @@ function MobileSearch({ onClose }) {
                 <Link
                     to={location.pathname === "/random" ? "#" : "/random"}
                     onClick={handleRandomClick}
-                    className="p-[10px] aspect-square bg-[#000000]/75 text-white/50 hover:text-white rounded-lg border border-white/10 hover:border-white/20 transition-colors flex items-center justify-center shrink-0"
+                    className="p-[10px] aspect-square bg-[#2a2a2a]/75 text-white/50 hover:text-white rounded-lg transition-colors flex items-center justify-center shrink-0"
                     title="Random Anime"
                 >
                     <FontAwesomeIcon icon={faRandom} className="text-lg" />

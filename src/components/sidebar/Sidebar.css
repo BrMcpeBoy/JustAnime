@@ -82,15 +82,13 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.625rem 1rem;
-  background-color: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.5rem;
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.2s ease;
 }
 
 .close-button:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  background-color: #1a1a1a;
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .quick-actions {
@@ -110,57 +108,27 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
-  width: 100%;
-}
-
-@media (max-width: 575px) {
-  .quick-actions-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 .quick-action-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem;
   border-radius: 0.5rem;
-  background-color: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  min-height: 70px;
-  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s ease;
 }
 
 .quick-action-item:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  background-color: #1a1a1a;
-}
-
-/* Language item - no background change on hover */
-.quick-action-language:hover {
-  background-color: #0a0a0a;
-}
-
-@media (max-width: 575px) {
-  .quick-action-item {
-    padding: 0.5rem;
-    min-height: 65px;
-  }
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .language-switcher {
   display: flex;
-  background-color: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.25rem;
-  transition: border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.language-switcher:hover {
-  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .lang-button {
@@ -177,41 +145,6 @@
 
 .lang-button.active {
   background-color: rgba(255, 255, 255, 0.15);
-  color: white;
-}
-
-/* New language switcher style matching navbar */
-.language-switcher-new {
-  display: flex;
-  align-items: center;
-  gap: 0.125rem;
-  background-color: #000000;
-  border-radius: 0.375rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.125rem;
-  transition: border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  width: fit-content;
-}
-
-.language-switcher-new:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.lang-button-new {
-  padding: 0.125rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border-radius: 0.25rem;
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  color: #9ca3af;
-}
-
-.lang-button-new:hover {
-  color: white;
-}
-
-.lang-button-new.active {
-  background-color: #1a1a1a;
   color: white;
 }
 

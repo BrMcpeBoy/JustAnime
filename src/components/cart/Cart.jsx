@@ -7,7 +7,7 @@ import { FaChevronRight } from "react-icons/fa";
 import { useLanguage } from "@/src/context/LanguageContext";
 import "./Cart.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useToolTipPosition from "@/src/hooks/useToolTipPosition";
 import Qtip from "../qtip/Qtip";
 
@@ -16,7 +16,6 @@ function Cart({ label, data, path }) {
   const navigate = useNavigate();
   const [hoveredItem, setHoveredItem] = useState(null);
   const [hoverTimeout, setHoverTimeout] = useState(null);
-  const [watchProgress, setWatchProgress] = useState({});
   const { tooltipPosition, tooltipHorizontalPosition, cardRefs } =
     useToolTipPosition(hoveredItem, data);
 
@@ -31,57 +30,6 @@ function Cart({ label, data, path }) {
         setHoveredItem(null);
       }, 300) 
     );
-  };
-
-  // Load continue watching data from localStorage
-  useEffect(() => {
-    const loadWatchProgress = () => {
-      const continueWatchingData = JSON.parse(
-        localStorage.getItem("continueWatching") || "[]"
-      );
-      
-      const progressMap = {};
-      continueWatchingData.forEach((item) => {
-        const animeId = String(item.id);
-        if (!progressMap[animeId]) {
-          progressMap[animeId] = {
-            episodeId: item.episodeId,
-            episodeNum: item.episodeNum,
-          };
-        }
-      });
-      
-      setWatchProgress(progressMap);
-    };
-
-    loadWatchProgress();
-
-    const handleStorageChange = (e) => {
-      if (e.key === "continueWatching") {
-        loadWatchProgress();
-      }
-    };
-
-    const handleLocalStorageChange = () => {
-      loadWatchProgress();
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    window.addEventListener("continueWatchingUpdated", handleLocalStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener("continueWatchingUpdated", handleLocalStorageChange);
-    };
-  }, []);
-
-  // Helper function to get the correct watch URL
-  const getWatchUrl = (id) => {
-    const progress = watchProgress[String(id)];
-    if (progress && progress.episodeId) {
-      return `/watch/${id}?ep=${progress.episodeId}`;
-    }
-    return `/watch/${id}`;
   };
 
   return (
@@ -102,7 +50,7 @@ function Cart({ label, data, path }) {
                 src={`${item.poster}`}
                 alt={item.title}
                 className="flex-shrink-0 w-[60px] h-[75px] rounded-md object-cover cursor-pointer"
-                onClick={() => navigate(getWatchUrl(item.id))}
+                onClick={() => navigate(`/watch/${item.id}`)}
                 onMouseEnter={() => handleImageEnter(item, index)}
                 onMouseLeave={handleImageLeave}
               />
@@ -135,7 +83,7 @@ function Cart({ label, data, path }) {
                   to={`/${item.id}`}
                   className="w-full line-clamp-2 text-[1em] font-[500] hover:cursor-pointer hover:text-[#ffbade] transform transition-all ease-out max-[1200px]:text-[14px]"
                 >
-                  {language?.toLowerCase() === "en" ? item.title : item.japanese_title}
+                  {language === "EN" ? item.title : item.japanese_title}
                 </Link>
                 <div className="flex items-center flex-wrap w-fit space-x-1">
                   {item.tvInfo?.sub && (

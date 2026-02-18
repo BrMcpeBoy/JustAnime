@@ -1,6 +1,4 @@
 import { useLanguage } from "@/src/context/LanguageContext";
-import { getTranslation } from "@/src/translations/translations";
-import { formatNumber } from "@/src/utils/numberConverter";
 import {
   faAngleDown,
   faCirclePlay,
@@ -19,7 +17,7 @@ function Episodelist({
   totalEpisodes,
 }) {
   const [activeEpisodeId, setActiveEpisodeId] = useState(currentEpisode);
-  const { language, titleLanguage } = useLanguage();
+  const { language } = useLanguage();
   const listContainerRef = useRef(null);
   const activeEpisodeRef = useRef(null);
   const [showDropDown, setShowDropDown] = useState(false);
@@ -45,11 +43,9 @@ function Episodelist({
         activeEpisodeHeight / 2;
     }
   };
-  
   useEffect(() => {
     setActiveEpisodeId(episodeNum);
   }, [episodeNum]);
-  
   useEffect(() => {
     scrollToActiveEpisode();
   }, [activeEpisodeId]);
@@ -112,11 +108,10 @@ function Episodelist({
     for (let i = 0; i < totalEpisodes; i += step) {
       const start = i + 1;
       const end = Math.min(i + step, totalEpisodes);
-      ranges.push({ start, end, label: `${start}-${end}` });
+      ranges.push(`${start}-${end}`);
     }
     return ranges;
   }
-
   useEffect(() => {
     if (currentEpisode && episodeNum) {
       if (episodeNum < selectedRange[0] || episodeNum > selectedRange[1]) {
@@ -142,97 +137,84 @@ function Episodelist({
   }, [activeEpisodeId, episodes]);
 
   return (
-    <div className="flex flex-col w-full h-full max-w-sm max-[600px]:max-w-full bg-[#0a0a0a] rounded-lg overflow-hidden max-[1200px]:max-w-full max-[1200px]:bg-transparent max-[1200px]:border-0 max-[1200px]:rounded-none">
-      {/* Header - Inside Border */}
-      <div className="sticky top-0 z-10 flex flex-col bg-[#0a0a0a] max-[1200px]:bg-[#0a0a0a]">
-        <div className="flex items-center justify-between px-5 py-2.5">
-          <div className="flex items-center gap-3">
-            <h1 className="text-[15px] font-semibold text-white">
-              {getTranslation(language, "episodes")}
-            </h1>
-            {totalEpisodes > 100 && (
-              <div className="flex items-center">
-                <div
-                  onClick={() => setShowDropDown((prev) => !prev)}
-                  className="text-gray-300 relative cursor-pointer flex items-center gap-2 hover:text-white transition-colors"
-                  ref={dropDownRef}
-                >
-                  <FontAwesomeIcon icon={faList} className="text-gray-400" />
-                  <p className="text-[12px]">
-                    {formatNumber(selectedRange[0], language)}-{formatNumber(selectedRange[1], language)}
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faAngleDown}
-                    className="text-[10px]"
-                  />
-                  {showDropDown && (
-                    <div className="absolute top-full mt-2 left-0 z-30 bg-[#000000] w-[150px] max-h-[200px] overflow-y-auto rounded-lg border border-[#3a3a3a] shadow-lg">
-                      {generateRangeOptions(totalEpisodes).map((rangeObj, index) => (
-                        <div
-                          key={index}
-                          onClick={() => {
-                            handleRangeSelect(rangeObj.label);
-                            setActiveRange(rangeObj.label);
-                          }}
-                          className={`hover:bg-[#0a0a0a] cursor-pointer transition-colors ${
-                            rangeObj.label === activeRange ? "bg-[#1a1a1a]" : ""
-                          }`}
-                        >
-                          <p className="font-medium text-[12px] p-2.5 flex justify-between items-center text-gray-300 hover:text-white">
-                            {formatNumber(rangeObj.start, language)}-{formatNumber(rangeObj.end, language)}
-                            {rangeObj.label === activeRange ? (
-                              <FontAwesomeIcon icon={faCheck} className="text-white" />
-                            ) : null}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-
-                    {totalEpisodes > 100 && (
-            <div className="flex items-center ml-auto">
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#000000] rounded-lg border border-[#2a2a2a] focus-within:border-gray-500 transition-colors w-[160px] max-[600px]:w-[130px]">
+    <div className="flex flex-col w-full h-full">
+      <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-2.5 bg-[#1a1a1a] border-b border-[#2a2a2a] max-[600px]:px-2">
+        <div className="flex items-center gap-4 max-[600px]:gap-2">
+          <h1 className="text-[14px] font-semibold text-white max-[600px]:text-[13px]">Episodes</h1>
+          {totalEpisodes > 100 && (
+            <div className="flex items-center">
+              <div
+                onClick={() => setShowDropDown((prev) => !prev)}
+                className="text-gray-300 relative cursor-pointer flex items-center gap-2 hover:text-white transition-colors max-[600px]:gap-1"
+                ref={dropDownRef}
+              >
+                <FontAwesomeIcon icon={faList} className="text-gray-400" />
+                <p className="text-[12px] max-[600px]:text-[11px]">
+                  {selectedRange[0]}-{selectedRange[1]}
+                </p>
                 <FontAwesomeIcon
-                  icon={faMagnifyingGlass}
-                  className="text-[12px] text-gray-400 flex-shrink-0 mr-0.5"
+                  icon={faAngleDown}
+                  className="text-[10px]"
                 />
-                <input
-                  type="number"
-                  className="w-full bg-transparent focus:outline-none text-[12px] text-white placeholder:text-gray-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  placeholder={getTranslation(language, "searchEpisode")}
-                  onChange={handleChange}
-                />
+                {showDropDown && (
+                  <div className="absolute top-full mt-2 left-0 z-30 bg-[#2a2a2a] w-[150px] max-h-[200px] overflow-y-auto rounded-lg border border-[#3a3a3a] shadow-lg">
+                    {generateRangeOptions(totalEpisodes).map((item, index) => (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          handleRangeSelect(item);
+                          setActiveRange(item);
+                        }}
+                        className={`hover:bg-[#3a3a3a] cursor-pointer transition-colors ${
+                          item === activeRange ? "bg-[#404040]" : ""
+                        }`}
+                      >
+                        <p className="font-medium text-[12px] p-2.5 flex justify-between items-center text-gray-300 hover:text-white max-[600px]:text-[11px] max-[600px]:p-2">
+                          {item}
+                          {item === activeRange ? (
+                            <FontAwesomeIcon icon={faCheck} className="text-white" />
+                          ) : null}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}
         </div>
-        <div className="h-px bg-white/10"></div>
+        
+        {totalEpisodes > 100 && (
+          <div className="flex items-center min-w-[180px] max-[600px]:min-w-[120px]">
+            <div className="w-full flex items-center gap-2 px-3 py-1.5 bg-[#2a2a2a] rounded-lg border border-[#3a3a3a] focus-within:border-gray-500 transition-colors max-[600px]:px-2 max-[600px]:py-1">
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="text-[12px] text-gray-400"
+              />
+              <input
+                type="text"
+                className="w-full bg-transparent focus:outline-none text-[13px] text-white placeholder:text-gray-500 max-[600px]:text-[12px]"
+                placeholder="Go to episode..."
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        )}
       </div>
-
-      {/* Episodes List Container - No Additional Border */}
-      <div
-        ref={listContainerRef}
-        className="w-full flex-1 overflow-y-auto bg-[#0a0a0a] max-h-[461px] max-[1200px]:max-h-[400px]"
-      >
-        <div className="pt-3 pb-1 px-3">
-          {/* List View - Grid for 30+ episodes, List for less */}
-          {totalEpisodes > 30 ? (
-            // Grid layout for large episode counts
-            <div
-              className={`${
-                totalEpisodes > 30
-                  ? "grid gap-2" +
-                    (totalEpisodes > 100
-                      ? " grid-cols-5"
-                      : " grid-cols-5 max-[1200px]:grid-cols-12 max-[860px]:grid-cols-10 max-[575px]:grid-cols-8 max-[478px]:grid-cols-6 max-[350px]:grid-cols-5")
-                  : ""
-              }`}
-            >
-              {episodes
+      
+      <div ref={listContainerRef} className="w-full flex-1 overflow-y-auto bg-[#1a1a1a] max-h-[calc(100vh-200px)] max-[1200px]:max-h-[400px]">
+        <div
+          className={`${
+            totalEpisodes > 30
+              ? "p-4 grid gap-2 max-[600px]:p-2 max-[600px]:gap-1.5" + 
+                (totalEpisodes > 100 
+                  ? " grid-cols-5" 
+                  : " grid-cols-5 max-[1200px]:grid-cols-12 max-[860px]:grid-cols-10 max-[575px]:grid-cols-8 max-[478px]:grid-cols-6 max-[350px]:grid-cols-5")
+              : ""
+          }`}
+        >
+          {totalEpisodes > 30
+            ? episodes
                 .slice(selectedRange[0] - 1, selectedRange[1])
                 .map((item, index) => {
                   const episodeNumber = item?.id.match(/ep=(\d+)/)?.[1];
@@ -245,18 +227,18 @@ function Episodelist({
                     <div
                       key={item?.id}
                       ref={isActive ? activeEpisodeRef : null}
-                      className={`flex items-center justify-center rounded-lg p-3 sm:p-4 border border-white/10 hover:border-white/20 transition-colors h-[35px] text-[13px] font-medium cursor-pointer transition-all ${
+                      className={`flex items-center justify-center rounded-lg h-[35px] text-[13px] font-medium cursor-pointer transition-all max-[600px]:h-[30px] max-[600px]:text-[12px] ${
                         item?.filler
                           ? isActive
                             ? "bg-white text-black"
-                            : "bg-[#000000] text-gray-400"
+                            : "bg-[#2a2a2a] text-gray-400"
                           : ""
                       } hover:bg-[#404040] 
                           hover:text-white
                        ${
                          isActive
                            ? "bg-white text-black ring-1 ring-white"
-                           : "bg-[#000000] text-gray-400"
+                           : "bg-[#2a2a2a] text-gray-400"
                        } ${isSearched ? "ring-2 ring-white" : ""}`}
                       onClick={() => {
                         if (episodeNumber) {
@@ -267,86 +249,56 @@ function Episodelist({
                       }}
                     >
                       <span className="transition-colors">
-                        {formatNumber(item?.episode_no, language)}
+                        {index + selectedRange[0]}
                       </span>
                     </div>
                   );
-                })}
-            </div>
-          ) : (
-            // Clean list layout for small episode counts (matching screenshot)
-            <div className="flex flex-col">
-              {episodes
-                .slice(selectedRange[0] - 1, selectedRange[1])
-                .map((item, index) => {
-                  const episodeNumber = item?.id.match(/ep=(\d+)/)?.[1];
-                  const isActive =
-                    activeEpisodeId === episodeNumber ||
-                    currentEpisode === episodeNumber;
-                  const isSearched = searchedEpisode === item?.id;
-                  const actualEpisodeNumber = selectedRange[0] + index;
-                  const isLastItem = index === episodes.slice(selectedRange[0] - 1, selectedRange[1]).length - 1;
+                })
+            : episodes?.map((item, index) => {
+                const episodeNumber = item?.id.match(/ep=(\d+)/)?.[1];
+                const isActive =
+                  activeEpisodeId === episodeNumber ||
+                  currentEpisode === episodeNumber;
+                const isSearched = searchedEpisode === item?.id;
 
-                  return (
-                    <div key={item?.id}>
-                      <div
-                        ref={isActive ? activeEpisodeRef : null}
-                        className={`relative w-full px-3 py-2.5 rounded-lg transition-all duration-300 cursor-pointer flex items-center justify-between ${
-                          isActive
-                            ? "bg-[#2a2a2a] border border-white/20"
-                            : ""
-                        } hover:bg-white/5 ${isSearched ? "ring-2 ring-white/40" : ""}`}
-                        onClick={() => {
-                          if (episodeNumber) {
-                            onEpisodeClick(episodeNumber);
-                            setActiveEpisodeId(episodeNumber);
-                            setSearchedEpisode(null);
-                          }
-                        }}
-                      >
-                        {/* Episode Number & Title */}
-                        <div className="flex items-center gap-2 flex-1 min-w-0">
-                          <span className={`font-semibold text-sm transition-colors duration-300 min-w-fit ${
-                            isActive
-                              ? "text-white"
-                              : "text-gray-400"
-                          }`}>
-                            {getTranslation(language, "episode")} {formatNumber(item?.episode_no, language)}
-                          </span>
-
-                          <h3 className={`text-sm line-clamp-1 transition-colors duration-300 ${
-                            isActive
-                              ? "text-white font-medium"
-                              : "text-gray-400"
-                          }`}>
-                            {titleLanguage === "en"
-                              ? (item?.title && !item?.title.toLowerCase().match(/^episode\s*\d+$/i) ? item?.title : "")
-                              : (item?.japanese_title && !item?.japanese_title.toLowerCase().match(/^episode\s*\d+$/i) ? item?.japanese_title : "")}
-                          </h3>
-                        </div>
-
-                        {/* Active Indicator & Filler */}
-                        <div className="flex items-center gap-1.5 ml-1.5 flex-shrink-0">
-                          {item?.filler && (
-                            <div className="px-2 py-0.5 bg-yellow-500/20 border border-yellow-500/40 rounded text-xs text-yellow-300">
-                              Filler
-                            </div>
-                          )}
-                          {isActive && (
-                            <FontAwesomeIcon
-                              icon={faCirclePlay}
-                              className="w-5 h-5 text-white"
-                            />
-                          )}
-                        </div>
-                      </div>
-                      {/* Divider Line - Fits Content Width with Blur Edges */}
-                      <div className="mx-3 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                return (
+                  <div
+                    key={item?.id}
+                    ref={isActive ? activeEpisodeRef : null}
+                    className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 ${
+                      (index + 1) % 2 && !isActive
+                        ? "bg-[#202020]"
+                        : "bg-[#1a1a1a]"
+                    } hover:bg-[#2a2a2a] ${
+                      isActive ? "bg-[#2a2a2a]" : ""
+                    } ${isSearched ? "ring-1 ring-white" : ""}`}
+                    onClick={() => {
+                      if (episodeNumber) {
+                        onEpisodeClick(episodeNumber);
+                        setActiveEpisodeId(episodeNumber);
+                        setSearchedEpisode(null);
+                      }
+                    }}
+                  >
+                    <p className={`text-[14px] font-medium max-[600px]:text-[13px] ${isActive ? "text-white" : "text-gray-400"}`}>
+                      {index + 1}
+                    </p>
+                    <div className="w-full flex items-center justify-between gap-x-[5px]">
+                      <h1 className={`line-clamp-1 text-[14px] transition-colors max-[600px]:text-[13px] ${
+                        isActive ? "text-white font-medium" : "text-gray-400 font-normal"
+                      }`}>
+                        {language === "EN" ? item?.title : item?.japanese_title}
+                      </h1>
+                      {isActive && (
+                        <FontAwesomeIcon
+                          icon={faCirclePlay}
+                          className="w-[18px] h-[18px] text-white max-[600px]:w-[16px] max-[600px]:h-[16px]"
+                        />
+                      )}
                     </div>
-                  );
-                })}
-            </div>
-          )}
+                  </div>
+                );
+              })}
         </div>
       </div>
     </div>
