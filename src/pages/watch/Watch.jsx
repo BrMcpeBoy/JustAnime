@@ -351,58 +351,54 @@ export default function Watch() {
                       />
                     </div>
                   )}
-
-                  {/* Title and Server Selection */}
-                  <div className="px-4 py-3">
-                    <div className="bg-[#0a0a0a] border border-white/5 rounded-lg p-4">
-                      <Servers
-                        servers={servers}
-                        activeEpisodeNum={activeEpisodeNum}
-                        activeServerId={activeServerId}
-                        setActiveServerId={setActiveServerId}
-                        serverLoading={serverLoading}
-                        setActiveServerType={setActiveServerType}
-                        activeServerType={activeServerType}
-                        setActiveServerName={setActiveServerName}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Next Episode Schedule */}
-                  {nextEpisodeSchedule?.nextEpisodeSchedule && showNextEpisodeSchedule && (
-                    <div className="px-4 pb-4">
-                      <div className="w-full p-4 rounded-lg bg-[#0a0a0a] border border-white/5 flex items-center justify-between">
-                        <div className="flex items-center gap-x-3">
-                          <span className="text-[18px]">🚀</span>
-                          <div>
-                            <span className="text-gray-400 text-sm">Next episode estimated at</span>
-                            <span className="ml-2 text-white text-sm font-medium">
-                              {new Date(
-                                new Date(nextEpisodeSchedule.nextEpisodeSchedule).getTime() -
-                                new Date().getTimezoneOffset() * 60000
-                              ).toLocaleDateString("en-GB", {
-                                day: "2-digit",
-                                month: "2-digit",
-                                year: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                second: "2-digit",
-                                hour12: true,
-                              })}
-                            </span>
-                          </div>
-                        </div>
-                        <button
-                          className="text-2xl text-gray-500 hover:text-white transition-colors"
-                          onClick={() => setShowNextEpisodeSchedule(false)}
-                        >
-                          ×
-                        </button>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
+
+              {/* Server Selection */}
+              <div className="bg-[#0a0a0a] border border-white/5 rounded-lg p-4">
+                <Servers
+                  servers={servers}
+                  activeEpisodeNum={activeEpisodeNum}
+                  activeServerId={activeServerId}
+                  setActiveServerId={setActiveServerId}
+                  serverLoading={serverLoading}
+                  setActiveServerType={setActiveServerType}
+                  activeServerType={activeServerType}
+                  setActiveServerName={setActiveServerName}
+                />
+              </div>
+
+              {/* Next Episode Schedule */}
+              {nextEpisodeSchedule?.nextEpisodeSchedule && showNextEpisodeSchedule && (
+                <div className="bg-[#0a0a0a] border border-white/5 rounded-lg p-4 flex items-center justify-between">
+                  <div className="flex items-center gap-x-3">
+                    <span className="text-[18px]">🚀</span>
+                    <div>
+                      <span className="text-gray-400 text-sm">Next episode estimated at</span>
+                      <span className="ml-2 text-white text-sm font-medium">
+                        {new Date(
+                          new Date(nextEpisodeSchedule.nextEpisodeSchedule).getTime() -
+                          new Date().getTimezoneOffset() * 60000
+                        ).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          second: "2-digit",
+                          hour12: true,
+                        })}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    className="text-2xl text-gray-500 hover:text-white transition-colors"
+                    onClick={() => setShowNextEpisodeSchedule(false)}
+                  >
+                    ×
+                  </button>
+                </div>
+              )}
 
               {/* Mobile-only Seasons Section */}
               {seasons?.length > 0 && (
