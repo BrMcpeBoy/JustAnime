@@ -301,26 +301,26 @@ function Episodelist({
                 );
               })}
         </div>
+        {totalEpisodes <= 30 && (() => {
+          const activeIndex = episodes ? episodes.findIndex(
+            (ep) => ep?.id.match(/ep=(\d+)/)?.[1] === (activeEpisodeId || currentEpisode)
+          ) : -1;
+          const progress = episodes && episodes.length > 1 ? activeIndex / (episodes.length - 1) : 0;
+          return (
+            <div className="sticky bottom-0 h-[3px] w-full bg-white/5">
+              <div
+                className="h-full bg-white/50"
+                style={{
+                  width: `${progress * 100}%`,
+                  maskImage: "linear-gradient(to right, white 60%, transparent 95%)",
+                  WebkitMaskImage: "linear-gradient(to right, white 60%, transparent 95%)",
+                  transition: "width 0.4s ease",
+                }}
+              />
+            </div>
+          );
+        })()}
       </div>
-      {totalEpisodes <= 30 && (() => {
-        const activeIndex = episodes ? episodes.findIndex(
-          (ep) => ep?.id.match(/ep=(\d+)/)?.[1] === (activeEpisodeId || currentEpisode)
-        ) : -1;
-        const progress = episodes && episodes.length > 1 ? activeIndex / (episodes.length - 1) : 0;
-        return (
-          <div className="relative h-[2px] w-full overflow-hidden">
-            <div
-              className="h-full bg-white/40"
-              style={{
-                width: `${progress * 100}%`,
-                maskImage: "linear-gradient(to right, white 60%, transparent 95%)",
-                WebkitMaskImage: "linear-gradient(to right, white 60%, transparent 95%)",
-                transition: "width 0.4s ease",
-              }}
-            />
-          </div>
-        );
-      })()}
     </div>
   );
 }
