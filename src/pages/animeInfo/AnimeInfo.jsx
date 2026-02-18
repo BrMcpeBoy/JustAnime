@@ -152,7 +152,7 @@ function AnimeInfo({ random = false }) {
     },
     {
       condition: info.tvInfo?.quality,
-      bgColor: "#FFBADE",
+      bgColor: "#ffffff",
       text: info.tvInfo.quality,
     },
     {
