@@ -137,7 +137,16 @@ function Episodelist({
   }, [activeEpisodeId, episodes]);
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col w-full h-full relative">
+      {/* Vertical ruler on left side */}
+      {totalEpisodes <= 30 && (
+        <div
+          className="absolute left-0 top-0 bottom-0 w-[1px] pointer-events-none z-10"
+          style={{
+            background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.15) 10%, rgba(255,255,255,0.15) 90%, transparent 100%)",
+          }}
+        />
+      )}
       <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-2.5 bg-[#0a0a0a] border-b border-white/5 max-[600px]:px-2">
         <div className="flex items-center gap-4 max-[600px]:gap-2">
           <h1 className="text-[14px] font-semibold text-white max-[600px]:text-[13px]">Episodes</h1>
@@ -292,13 +301,7 @@ function Episodelist({
                         />
                       )}
                     </div>
-                    {/* Fading separator line */}
-                    <div
-                      className="absolute left-0 top-0 bottom-0 w-[1px] pointer-events-none"
-                      style={{
-                        background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.08) 85%, transparent 100%)",
-                      }}
-                    />
+
                   </div>
                 );
               })}
