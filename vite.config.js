@@ -9,13 +9,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./"),
     },
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://haruauth.vercel.app',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
 })
