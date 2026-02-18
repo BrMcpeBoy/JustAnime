@@ -30,11 +30,27 @@ function Genre({ data }) {
   }, [isHovered]);
 
   const scroll = (direction) => {
-    if (scrollContainerRef.current) {
-      const amount = direction === "left" ? -300 : 300;
-      posRef.current = Math.max(0, posRef.current + amount);
-      scrollContainerRef.current.scrollLeft = posRef.current;
-    }
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const amount = direction === "left" ? -300 : 300;
+    const target = Math.max(0, posRef.current + amount);
+    const start = posRef.current;
+    const distance = target - start;
+    const duration = 400;
+    let startTime = null;
+
+    const ease = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      posRef.current = start + distance * ease(progress);
+      el.scrollLeft = posRef.current;
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+
+    requestAnimationFrame(animate);
   };
 
   const loopedData = data ? [...data, ...data] : [];
