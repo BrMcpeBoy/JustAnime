@@ -296,7 +296,7 @@ function Episodelist({
                     <div
                       className="absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none"
                       style={{
-                        background: "linear-gradient(to right, rgba(255,255,255,0.08) 70%, transparent 100%)",
+                        background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 8%, rgba(255,255,255,0.08) 75%, transparent 100%)",
                       }}
                     />
                   </div>
