@@ -260,66 +260,42 @@ function Episodelist({
                   activeEpisodeId === episodeNumber ||
                   currentEpisode === episodeNumber;
                 const isSearched = searchedEpisode === item?.id;
-                const activeIndex = episodes.findIndex(
-                  (ep) => ep?.id.match(/ep=(\d+)/)?.[1] === (activeEpisodeId || currentEpisode)
-                );
-                const progress = episodes.length > 1 ? activeIndex / (episodes.length - 1) : 0;
 
                 return (
-                  <div key={item?.id} className="relative">
-                    <div
-                      ref={isActive ? activeEpisodeRef : null}
-                      className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 bg-[#0a0a0a] hover:bg-[#1a1a1a] ${
-                        isActive ? "border-l-2 border-white" : ""
-                      } ${isSearched ? "ring-1 ring-white" : ""}`}
-                      onClick={() => {
-                        if (episodeNumber) {
-                          onEpisodeClick(episodeNumber);
-                          setActiveEpisodeId(episodeNumber);
-                          setSearchedEpisode(null);
-                        }
-                      }}
-                    >
-                      <p className={`text-[14px] font-medium max-[600px]:text-[13px] ${isActive ? "text-white" : "text-gray-400"}`}>
-                        {index + 1}
-                      </p>
-                      <div className="w-full flex items-center justify-between gap-x-[5px]">
-                        <h1 className={`line-clamp-1 text-[14px] transition-colors max-[600px]:text-[13px] ${
-                          isActive ? "text-white font-medium" : "text-gray-400 font-normal"
-                        }`}>
-                          {language === "EN" ? item?.title : item?.japanese_title}
-                        </h1>
-                        {isActive && (
-                          <FontAwesomeIcon
-                            icon={faCirclePlay}
-                            className="w-[18px] h-[18px] text-white max-[600px]:w-[16px] max-[600px]:h-[16px]"
-                          />
-                        )}
-                      </div>
+                  <div
+                    key={item?.id}
+                    ref={isActive ? activeEpisodeRef : null}
+                    className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 bg-[#0a0a0a] hover:bg-[#1a1a1a] border-b border-white/5 ${
+                      isActive ? "border-l-2 border-l-white" : ""
+                    } ${isSearched ? "ring-1 ring-white" : ""}`}
+                    onClick={() => {
+                      if (episodeNumber) {
+                        onEpisodeClick(episodeNumber);
+                        setActiveEpisodeId(episodeNumber);
+                        setSearchedEpisode(null);
+                      }
+                    }}
+                  >
+                    <p className={`text-[14px] font-medium max-[600px]:text-[13px] ${isActive ? "text-white" : "text-gray-400"}`}>
+                      {index + 1}
+                    </p>
+                    <div className="w-full flex items-center justify-between gap-x-[5px]">
+                      <h1 className={`line-clamp-1 text-[14px] transition-colors max-[600px]:text-[13px] ${
+                        isActive ? "text-white font-medium" : "text-gray-400 font-normal"
+                      }`}>
+                        {language === "EN" ? item?.title : item?.japanese_title}
+                      </h1>
+                      {isActive && (
+                        <FontAwesomeIcon
+                          icon={faCirclePlay}
+                          className="w-[18px] h-[18px] text-white max-[600px]:w-[16px] max-[600px]:h-[16px]"
+                        />
+                      )}
                     </div>
                   </div>
                 );
               })}
         </div>
-        {totalEpisodes <= 30 && (() => {
-          const activeIndex = episodes ? episodes.findIndex(
-            (ep) => ep?.id.match(/ep=(\d+)/)?.[1] === (activeEpisodeId || currentEpisode)
-          ) : -1;
-          const progress = episodes && episodes.length > 1 ? activeIndex / (episodes.length - 1) : 0;
-          return (
-            <div className="sticky bottom-0 h-[3px] w-full bg-white/5">
-              <div
-                className="h-full bg-white/50"
-                style={{
-                  width: `${progress * 100}%`,
-                  maskImage: "linear-gradient(to right, white 60%, transparent 95%)",
-                  WebkitMaskImage: "linear-gradient(to right, white 60%, transparent 95%)",
-                  transition: "width 0.4s ease",
-                }}
-              />
-            </div>
-          );
-        })()}
       </div>
     </div>
   );
