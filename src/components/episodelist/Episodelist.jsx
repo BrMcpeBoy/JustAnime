@@ -260,42 +260,57 @@ function Episodelist({
                   activeEpisodeId === episodeNumber ||
                   currentEpisode === episodeNumber;
                 const isSearched = searchedEpisode === item?.id;
+                const activeIndex = episodes.findIndex(
+                  (ep) => ep?.id.match(/ep=(\d+)/)?.[1] === (activeEpisodeId || currentEpisode)
+                );
+                const progress = episodes.length > 1 ? activeIndex / (episodes.length - 1) : 0;
+                const isLast = index === episodes.length - 1;
 
                 return (
-                  <div
-                    key={item?.id}
-                    ref={isActive ? activeEpisodeRef : null}
-                    className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 ${
-                      (index + 1) % 2 && !isActive
-                        ? "bg-[#111111]"
-                        : "bg-[#0a0a0a]"
-                    } hover:bg-[#1a1a1a] ${
-                      isActive ? "bg-[#1a1a1a] border-l-2 border-white" : ""
-                    } ${isSearched ? "ring-1 ring-white" : ""}`}
-                    onClick={() => {
-                      if (episodeNumber) {
-                        onEpisodeClick(episodeNumber);
-                        setActiveEpisodeId(episodeNumber);
-                        setSearchedEpisode(null);
-                      }
-                    }}
-                  >
-                    <p className={`text-[14px] font-medium max-[600px]:text-[13px] ${isActive ? "text-white" : "text-gray-400"}`}>
-                      {index + 1}
-                    </p>
-                    <div className="w-full flex items-center justify-between gap-x-[5px]">
-                      <h1 className={`line-clamp-1 text-[14px] transition-colors max-[600px]:text-[13px] ${
-                        isActive ? "text-white font-medium" : "text-gray-400 font-normal"
-                      }`}>
-                        {language === "EN" ? item?.title : item?.japanese_title}
-                      </h1>
-                      {isActive && (
-                        <FontAwesomeIcon
-                          icon={faCirclePlay}
-                          className="w-[18px] h-[18px] text-white max-[600px]:w-[16px] max-[600px]:h-[16px]"
-                        />
-                      )}
+                  <div key={item?.id} className="relative">
+                    <div
+                      ref={isActive ? activeEpisodeRef : null}
+                      className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 bg-[#0a0a0a] hover:bg-[#1a1a1a] ${
+                        isActive ? "border-l-2 border-white" : ""
+                      } ${isSearched ? "ring-1 ring-white" : ""}`}
+                      onClick={() => {
+                        if (episodeNumber) {
+                          onEpisodeClick(episodeNumber);
+                          setActiveEpisodeId(episodeNumber);
+                          setSearchedEpisode(null);
+                        }
+                      }}
+                    >
+                      <p className={`text-[14px] font-medium max-[600px]:text-[13px] ${isActive ? "text-white" : "text-gray-400"}`}>
+                        {index + 1}
+                      </p>
+                      <div className="w-full flex items-center justify-between gap-x-[5px]">
+                        <h1 className={`line-clamp-1 text-[14px] transition-colors max-[600px]:text-[13px] ${
+                          isActive ? "text-white font-medium" : "text-gray-400 font-normal"
+                        }`}>
+                          {language === "EN" ? item?.title : item?.japanese_title}
+                        </h1>
+                        {isActive && (
+                          <FontAwesomeIcon
+                            icon={faCirclePlay}
+                            className="w-[18px] h-[18px] text-white max-[600px]:w-[16px] max-[600px]:h-[16px]"
+                          />
+                        )}
+                      </div>
                     </div>
+                    {/* Progress ruler shown on last item */}
+                    {isLast && (
+                      <div className="absolute bottom-0 left-0 right-0 h-[2px] pointer-events-none overflow-hidden">
+                        <div
+                          className="h-full bg-white/50"
+                          style={{
+                            width: `${progress * 100}%`,
+                            maskImage: "linear-gradient(to right, white 55%, transparent 92%)",
+                            WebkitMaskImage: "linear-gradient(to right, white 55%, transparent 92%)",
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
                 );
               })}
