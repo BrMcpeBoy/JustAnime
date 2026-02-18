@@ -138,15 +138,6 @@ function Episodelist({
 
   return (
     <div className="flex flex-col w-full h-full relative">
-      {/* Vertical ruler on left side */}
-      {totalEpisodes <= 30 && (
-        <div
-          className="absolute left-0 top-0 bottom-0 w-[1px] pointer-events-none z-10"
-          style={{
-            background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.15) 10%, rgba(255,255,255,0.15) 90%, transparent 100%)",
-          }}
-        />
-      )}
       <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-2.5 bg-[#0a0a0a] border-b border-white/5 max-[600px]:px-2">
         <div className="flex items-center gap-4 max-[600px]:gap-2">
           <h1 className="text-[14px] font-semibold text-white max-[600px]:text-[13px]">Episodes</h1>
@@ -275,7 +266,7 @@ function Episodelist({
                     key={item?.id}
                     ref={isActive ? activeEpisodeRef : null}
                     className={`w-full px-4 py-2.5 flex items-center justify-start gap-x-4 cursor-pointer transition-all max-[600px]:px-3 max-[600px]:py-2 max-[600px]:gap-x-3 bg-[#0a0a0a] hover:bg-[#1a1a1a] relative ${
-                      isActive ? "border-l-2 border-l-white" : ""
+                      isActive ? "" : ""
                     } ${isSearched ? "ring-1 ring-white" : ""}`}
                     onClick={() => {
                       if (episodeNumber) {
@@ -307,6 +298,13 @@ function Episodelist({
               })}
         </div>
       </div>
+      {totalEpisodes <= 30 && (
+        <div className="h-[1px] w-full pointer-events-none"
+          style={{
+            background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 10%, rgba(255,255,255,0.08) 90%, transparent 100%)",
+          }}
+        />
+      )}
     </div>
   );
 }
