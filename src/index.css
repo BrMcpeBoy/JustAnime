@@ -8,7 +8,7 @@
   font-weight: 400;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #201f31;
+  background-color: #0d0f14;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -21,35 +21,36 @@
 }
 body {
   overflow-y: auto;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari and Opera */
+  display: none;
 }
-/* Hide default scrollbar completely */
+
+/* Scrollbar Styling - teal-tinted */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
-  background-color: #201f31;  /* Match the page background color */
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #201f31;  /* Match the page background color */
+  background: #080a0e;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #404040;
-  border-radius: 20px;
-  border: 2px solid #201f31;  /* Match the page background color */
+  background: #1a3535;
+  border-radius: 4px;
+  border: 2px solid #080a0e;
+  transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4d4d4d;
+  background: #264848;
 }
 
-/* Hide scrollbar buttons */
 ::-webkit-scrollbar-button {
   display: none;
   width: 0;
@@ -57,38 +58,39 @@ body::-webkit-scrollbar {
 }
 
 ::-webkit-scrollbar-corner {
-  background-color: #201f31;  /* Match the page background color */
+  background: #080a0e;
 }
 
-/* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #404040 #201f31;  /* Match the page background color */
+  scrollbar-color: #1a3535 #080a0e;
 }
 
-/* Hide default scrollbar for .scrollbar-visible class */
 .scrollbar-visible {
   scrollbar-width: thin;
-  scrollbar-color: #404040 #201f31;  /* Match the page background color */
+  scrollbar-color: #1a3535 #080a0e;
 }
 
 .scrollbar-visible::-webkit-scrollbar {
   width: 8px;
   height: 8px;
-  background-color: #201f31;  /* Match the page background color */
 }
 
 .scrollbar-visible::-webkit-scrollbar-track {
-  background-color: #201f31;  /* Match the page background color */
+  background: #080a0e;
+  border-radius: 0;
 }
 
 .scrollbar-visible::-webkit-scrollbar-thumb {
-  background-color: #404040;
-  border-radius: 20px;
-  border: 2px solid #201f31;  /* Match the page background color */
+  background: #1a3535;
+  border-radius: 4px;
+  border: 2px solid #080a0e;
 }
 
-/* Hide scrollbar buttons for .scrollbar-visible */
+.scrollbar-visible::-webkit-scrollbar-thumb:hover {
+  background: #264848;
+}
+
 .scrollbar-visible::-webkit-scrollbar-button {
   display: none;
   width: 0;
@@ -96,30 +98,45 @@ body::-webkit-scrollbar {
 }
 
 .scrollbar-visible::-webkit-scrollbar-corner {
-  background-color: #201f31;  /* Match the page background color */
+  background: #080a0e;
 }
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-::-webkit-scrollbar {
-  width: 16px;
-}
 
-::-webkit-scrollbar-track {
-  background: #23222c;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #65646a;
-}
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(32, 200, 160, 0.2) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(32, 200, 160, 0.2);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(32, 200, 160, 0.35);
 }
 
 .is-visible {
   opacity: 1;
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -175,6 +192,7 @@ body::-webkit-scrollbar {
     --chart-5: 340 75% 55%;
   }
 }
+
 .dot {
   width: 4px;
   height: 4px;
@@ -186,78 +204,55 @@ body::-webkit-scrollbar {
   display: inline-block;
 }
 
-/* Modern Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-  background-color: transparent;
+/* NOTIFICATION - Comment Highlight */
+.highlight-comment {
+  animation: highlight 3s ease;
+  position: relative;
+  z-index: 10;
 }
 
-::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0.02);
-  border-radius: 10px;
+@keyframes highlight {
+  0% {
+    background-color: transparent;
+    border-left: 3px solid transparent;
+  }
+  5% {
+    background-color: rgba(32, 200, 160, 0.2);
+    border-left: 3px solid rgb(32, 200, 160);
+    box-shadow: 0 0 0 4px rgba(32, 200, 160, 0.1);
+  }
+  10%, 85% {
+    background-color: rgba(32, 200, 160, 0.15);
+    border-left: 3px solid rgb(32, 200, 160);
+    box-shadow: 0 0 0 2px rgba(32, 200, 160, 0.05);
+  }
+  95% {
+    background-color: rgba(32, 200, 160, 0.05);
+    border-left: 3px solid rgba(32, 200, 160, 0.5);
+    box-shadow: none;
+  }
+  100% {
+    background-color: transparent;
+    border-left: 3px solid transparent;
+    box-shadow: none;
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  transition: all 0.2s ease-in-out;
+.highlight-comment::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(32, 200, 160, 0.1) 0%, transparent 100%);
+  pointer-events: none;
+  opacity: 0;
+  animation: highlightGlow 3s ease;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Hide scrollbar buttons */
-::-webkit-scrollbar-button {
-  display: none;
-  width: 0;
-  height: 0;
-}
-
-::-webkit-scrollbar-corner {
-  background-color: transparent;
-}
-
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0.02);
-}
-
-/* Scrollbar visible class with modern styling */
-.scrollbar-visible {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0.02);
-}
-
-.scrollbar-visible::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-  background-color: transparent;
-}
-
-.scrollbar-visible::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0.02);
-  border-radius: 10px;
-}
-
-.scrollbar-visible::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  transition: all 0.2s ease-in-out;
-}
-
-.scrollbar-visible::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.scrollbar-visible::-webkit-scrollbar-button {
-  display: none;
-  width: 0;
-  height: 0;
-}
-
-.scrollbar-visible::-webkit-scrollbar-corner {
-  background-color: transparent;
+@keyframes highlightGlow {
+  0%, 100% { opacity: 0; }
+  10%, 85% { opacity: 1; }
 }

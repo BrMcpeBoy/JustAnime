@@ -3,7 +3,8 @@
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  background-color: rgb(39 39 42);
+  background-color: #0d0f14;
+  border: 1px solid rgba(32, 200, 160, 0.15);
   color: rgb(161 161 170);
   font-size: 12px;
   padding: 6px;
@@ -13,6 +14,32 @@
 
 .next:hover,
 .prev:hover {
-  background-color: rgb(63 63 70);
+  background-color: rgba(32, 200, 160, 0.08);
+  border-color: rgba(32, 200, 160, 0.3);
   color: white;
+}
+
+.gmt-badge {
+  background-color: #0d0f14 !important;
+  border: 1px solid rgba(32, 200, 160, 0.15);
+  transition: border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gmt-badge:hover {
+  border-color: rgba(32, 200, 160, 0.3);
+}
+
+.episode-badge {
+  background-color: #0d0f14 !important;
+  border: 1px solid rgba(32, 200, 160, 0.15);
+  transition: border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.episode-badge:hover {
+  border-color: rgba(32, 200, 160, 0.3);
+}
+
+.group:hover .episode-badge {
+  background-color: rgba(32, 200, 160, 0.15) !important;
+  border-color: rgba(32, 200, 160, 0.3);
 }

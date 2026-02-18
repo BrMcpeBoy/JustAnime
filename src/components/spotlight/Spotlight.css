@@ -11,11 +11,13 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
 }
+
 .button-prev,
 .button-next {
   width: 36px;
   height: 36px;
-  background-color: #1a1a1a;
+  background-color: #0d0f14;
+  border: 1px solid rgba(32, 200, 160, 0.2);
   border-radius: 6px;
   cursor: pointer;
   display: flex;
@@ -26,7 +28,8 @@
 
 .button-prev:hover,
 .button-next:hover {
-  background-color: #2a2a2a;
+  background-color: rgba(32, 200, 160, 0.08);
+  border-color: rgba(32, 200, 160, 0.4);
 }
 
 .button-prev::after,
@@ -66,12 +69,14 @@
   border-radius: 50% !important;
   background-color: rgba(255, 255, 255, 0.5) !important;
   opacity: 1 !important;
+  transition: width 0.35s cubic-bezier(0.4,0,0.2,1), background-color 0.35s cubic-bezier(0.4,0,0.2,1), border-radius 0.35s cubic-bezier(0.4,0,0.2,1);
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #ffbade !important;
+  background-color: rgb(32, 200, 160) !important;
   width: 24px !important;
   border-radius: 12px !important;
+  opacity: 1;
 }
 
 .swiper-pagination {

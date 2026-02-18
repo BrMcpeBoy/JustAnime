@@ -4,7 +4,7 @@ body {
   padding: 0;
   overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: #0a0a0a;
+  background-color: #0d0f14;
   color: white;
 }
 
@@ -16,7 +16,6 @@ html {
   width: 100%;
 }
 
-/* Container and background */
 .splash-container {
   min-height: 100vh;
   width: 100vw;
@@ -61,7 +60,7 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(8, 10, 14, 0.75);
   z-index: 1;
 }
 
@@ -76,7 +75,6 @@ html {
   padding-top: 140px;
 }
 
-/* Logo */
 .logo-container {
   margin-bottom: 30px;
 }
@@ -97,8 +95,8 @@ html {
 .search-input {
   width: 100%;
   padding: 14px 48px 14px 20px;
-  background: rgba(17, 17, 17, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(13, 15, 20, 0.85);
+  border: 1px solid rgba(32, 200, 160, 0.18);
   border-radius: 8px;
   color: white;
   font-size: 16px;
@@ -107,11 +105,11 @@ html {
 }
 
 .search-input:focus {
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(32, 200, 160, 0.4);
 }
 
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .search-button {
@@ -129,25 +127,24 @@ html {
 }
 
 .search-button:hover {
-  color: white;
+  color: rgba(32, 200, 160, 0.9);
 }
 
 /* Enter button */
 .enter-button {
-  background: rgba(255, 255, 255, 0.9);
-  color: black;
-  padding: 14px 28px;
+  background: rgba(13, 15, 20, 0.9);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 13px 28px;
   border-radius: 8px;
+  border: 1px solid rgba(32, 200, 160, 0.25);
   text-decoration: none;
   font-weight: 500;
   margin: 8px 0 60px;
   transition: all 0.2s ease;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 13px;
 }
 
 .enter-button .angle-icon {
@@ -163,9 +160,9 @@ html {
 }
 
 .enter-button:hover {
-  background: white;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  background: rgba(32, 200, 160, 0.08);
+  border-color: rgba(32, 200, 160, 0.45);
+  color: white;
 }
 
 /* FAQ Section */
@@ -185,54 +182,59 @@ html {
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .faq-item {
-  background: #1a1a1a;
-  border-radius: 12px;
+  background: #0d0f14;
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #333;
+  border: 1px solid rgba(32, 200, 160, 0.12);
+  transition: border-color 0.2s;
+}
+
+.faq-item:hover {
+  border-color: rgba(32, 200, 160, 0.25);
 }
 
 .faq-question {
   width: 100%;
-  padding: 18px 24px;
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: none;
   border: none;
   color: white;
-  font-size: 17px;
+  font-size: 16px;
   text-align: left;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .faq-question:hover {
-  background: #252525;
+  background: rgba(32, 200, 160, 0.04);
 }
 
 .faq-toggle {
-  font-size: 16px;
-  color: #999;
+  font-size: 14px;
+  color: rgba(32, 200, 160, 0.6);
   transition: all 0.2s ease;
 }
 
 .faq-toggle.rotate {
   transform: rotate(180deg);
-  color: white;
+  color: rgba(32, 200, 160, 1);
 }
 
 .faq-answer {
-  padding: 0 24px 18px;
-  color: #999;
+  padding: 0 20px 16px;
+  color: #8a9aaa;
   line-height: 1.6;
-  font-size: 15px;
+  font-size: 14px;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 1024px) {
   .content-wrapper {
     padding-top: 120px;

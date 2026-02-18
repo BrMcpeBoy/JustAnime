@@ -1,5 +1,5 @@
 .servers {
-  border-bottom: 1px dashed #35373d;
+  border-bottom: 1px dashed rgba(32, 200, 160, 0.2);
 }
 .servers:only-child {
   border-bottom: none;
