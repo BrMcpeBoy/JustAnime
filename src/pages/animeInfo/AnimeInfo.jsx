@@ -78,7 +78,7 @@ function InfoItem({ label, value, isProducer = true }) {
 function Tag({ bgColor, index, icon, text }) {
   return (
     <div
-      className="flex space-x-1 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-1.5 py-0.5 text-gray-300 font-medium text-[11px] transition-all duration-200"
+      className="flex space-x-1 justify-center items-center bg-[#111111] border border-white/5 rounded-md px-2 py-1 text-gray-300 font-medium text-[13px] transition-all duration-200"
     >
       {icon && <FontAwesomeIcon icon={icon} className="text-[11px] text-gray-300" />}
       <p className="text-[11px] text-gray-300">{text}</p>
